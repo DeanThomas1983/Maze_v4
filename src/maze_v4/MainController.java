@@ -27,7 +27,8 @@ public class MainController
         dataModel = DataModel.getInstance();
         IMazeGenerationAlgorithm mazeGeneratorAlgorithm
                 = new DepthFirstMazeGenerator(dataModel.mazeStructure);
-        dataModel.getMazeStructure().generateMaze(mazeGeneratorAlgorithm);
+        mazeGeneratorAlgorithm.generateMaze();
+        //dataModel.getMazeStructure().generateMaze(mazeGeneratorAlgorithm);
         
         mazeTestForm = new MazeTestForm();
         mazeTestForm.setVisible(true);

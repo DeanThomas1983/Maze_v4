@@ -7,6 +7,7 @@ package maze_v4.AbstractClasses;
 import java.util.ArrayList;
 import java.util.Random;
 import maze_v4.Interfaces.IMazeCell;
+import maze_v4.SquareMaze.SquareMazeCell;
 import maze_v4.Wall;
 import maze_v4.WallList;
 
@@ -20,7 +21,8 @@ public class AbstractMazeCell
 
     private Random random = new Random();
     protected String identity;
-
+    
+    
     @Override
     public String toString()
     {
@@ -30,12 +32,8 @@ public class AbstractMazeCell
     @Override
     public void addNeighbourCell(IMazeCell neighbour, int location)
     {
-        int neighbourIndex = location + 2;
-        if (neighbourIndex > 3)
-        {
-            neighbourIndex -= 4;
-        }
-
+        int neighbourIndex = SquareMazeCell.getOppositeDirection(location);
+        
         this.getWalls().get(location).setConnectedCell(neighbour);
         
         if (this.getWalls().get(location).getConnectedCell() != null)
@@ -136,11 +134,20 @@ public class AbstractMazeCell
     public IMazeCell getRandomNeighbourCell()
     {
         IMazeCell result;
+        int indexOfWallToDemolish;
+        do
+        {
+            indexOfWallToDemolish = random.nextInt(this.getWallCount());
 
-        int indexOfWallToDemolish = random.nextInt(this.getWallCount());
-
+        } while (this.getWalls().get(indexOfWallToDemolish).getConnectedCell()
+                == null);
+        
+        int neighbourIndexOfWallToDemolish = 
+                SquareMazeCell.getOppositeDirection(indexOfWallToDemolish);
+        
         this.getWalls().get(indexOfWallToDemolish).setBlocked(false);
-
+        this.getWalls().get(indexOfWallToDemolish).getConnectedCell().getWalls().get(neighbourIndexOfWallToDemolish).setBlocked(false);
+        
         result = this.getWalls().get(indexOfWallToDemolish).getConnectedCell();
 
         return result;

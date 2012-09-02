@@ -39,6 +39,14 @@ implements IMazeGenerationAlgorithm
         
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
+            System.out.println("Current cell has " + 
+                    currentCell.getListedOfNeighboursWithAllWallsIntact().size()
+                    + " neighbour with all walls intact");
+            for (IMazeCell c : currentCell.getListedOfNeighboursWithAllWallsIntact())
+            {
+                System.out.println(c.getIdentity());
+            }
+            
             if (currentCell.getListedOfNeighboursWithAllWallsIntact().size() > 0)
             {
                 currentCell = currentCell.getRandomNeighbourCell();
@@ -51,6 +59,8 @@ implements IMazeGenerationAlgorithm
             }
             else
             {
+                System.out.println("Moved back to " + currentCell.toString());
+                
                 currentCell = cellStack.pop();
             }
         }
