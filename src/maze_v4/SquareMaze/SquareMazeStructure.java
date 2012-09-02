@@ -65,7 +65,9 @@ implements IMazeStructure
                     cellToWest = this.mazeCells.get((col-1) + (row * height));
                 }
                 
-                IMazeCell mazeCell = new SquareMazeCell(cellToNorth,
+                IMazeCell mazeCell = new SquareMazeCell("[" + col + ","
+                                                        + row + "]",
+                                                        cellToNorth,
                                                         null,
                                                         null,
                                                         cellToWest);

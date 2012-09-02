@@ -20,23 +20,25 @@ public final class SquareMazeCell
     public static int SOUTH = 2;
     public static int WEST = 3;
     
-    public SquareMazeCell()
+   public SquareMazeCell(String identity)
     {
         //  Create a new cell with no neighbours
-        this(null, null, null, null);
+        this(identity, null, null, null, null);
     }
-
-    public SquareMazeCell(IMazeCell cellToNorth,
+    
+    public SquareMazeCell(String identity,
+                          IMazeCell cellToNorth,
                           IMazeCell cellToEast,
                           IMazeCell cellToSouth,
                           IMazeCell cellToWest)
     {
+        this.identity = identity;
         this.addNeighbourCell(cellToNorth);
         this.addNeighbourCell(cellToEast);
         this.addNeighbourCell(cellToSouth);
         this.addNeighbourCell(cellToWest);
 
-        System.out.println("New cell created with "
+        System.out.println("New cell " + identity + " created with "
                 + this.getNumberOfIntactWalls() + " intact walls");
         System.out.println("Number of neighbours: "
                 + this.getTotalNumberOfNeighbours());

@@ -17,10 +17,15 @@ import maze_v4.WallList;
 public class AbstractMazeCell
         implements IMazeCell
 {
-
     private Random random = new Random();
-    private String identity;
+    protected String identity;
 
+    @Override
+    public String toString()
+    {
+        return this.identity; 
+    }
+    
     @Override
     public void addNeighbourCell(IMazeCell neighbour)
     {
