@@ -35,6 +35,7 @@ implements IMazeGenerationAlgorithm
         
         cellStack.push(currentCell);
         visitedCells++;
+        System.out.println("Current cell is " + currentCell.toString());
         
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
@@ -42,6 +43,8 @@ implements IMazeGenerationAlgorithm
             {
                 currentCell = currentCell.getRandomNeighbourCell();
                 
+                System.out.println("Current cell is " + currentCell.toString());
+        
                 cellStack.push(currentCell);
                 
                 visitedCells++;
