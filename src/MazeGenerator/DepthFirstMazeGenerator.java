@@ -38,9 +38,21 @@ public class DepthFirstMazeGenerator implements IMazeGenerationAlgorithm
         
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
-            
+            if (currentCell.getListedOfNeighboursWithAllWallsIntact().size() > 0)
+            {
+                currentCell = currentCell.getRandomNeighbourCell();
+                
+                cellStack.push(currentCell);
+                
+                visitedCells++;
+            }
+            else
+            {
+                currentCell = cellStack.pop();
+            }
         }
         
+        this.mazeStructure.setExitCell(currentCell);
     }
 
     private IMazeCell chooseOriginCell()

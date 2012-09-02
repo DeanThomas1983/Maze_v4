@@ -4,6 +4,8 @@
  */
 package maze_v4.AbstractClasses;
 
+import java.util.ArrayList;
+import java.util.Random;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Wall;
 import maze_v4.WallList;
@@ -15,6 +17,7 @@ import maze_v4.WallList;
 public class AbstractMazeCell
         implements IMazeCell
 {
+    private Random random = new Random();
     private String identity;
 
     @Override
@@ -95,5 +98,35 @@ public class AbstractMazeCell
     public String getIdentity()
     {
         return this.identity;
+    }
+
+    @Override
+    public ArrayList<IMazeCell> getListedOfNeighboursWithAllWallsIntact()
+    {
+        ArrayList<IMazeCell> result = new ArrayList<IMazeCell>();
+        
+        for (Wall w : walls)
+        {
+            if (w.getConnectedCell().getNumberOfIntactWalls() 
+                    == w.getConnectedCell().getWallCount())
+            {
+                result.add(w.getConnectedCell());
+            }
+        }
+        return result;
+    }
+    
+    @Override
+    public IMazeCell getRandomNeighbourCell()
+    {
+        IMazeCell result;
+        
+        int indexOfWallToDemolish = random.nextInt(this.getWallCount());
+        
+        this.getWalls().get(indexOfWallToDemolish).setBlocked(false);
+        
+        result = this.getWalls().get(indexOfWallToDemolish).getConnectedCell();
+        
+        return result;
     }
 }
