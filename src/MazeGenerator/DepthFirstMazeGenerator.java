@@ -59,9 +59,9 @@ implements IMazeGenerationAlgorithm
             }
             else
             {
-                System.out.println("Moved back to " + currentCell.toString());
-                
                 currentCell = cellStack.pop();
+                
+                System.out.println("Moved back to " + currentCell.toString());
             }
         }
         
