@@ -14,6 +14,8 @@ public interface IMazeStructure
 {
     public ArrayList<IMazeCell> getMazeCells();
     public IMazeCell getOriginCell();
+    public void setOriginCell(IMazeCell origin);
     public IMazeCell getExitCell();
+    public void setExitCell(IMazeCell exit);
     public void clear();
 }

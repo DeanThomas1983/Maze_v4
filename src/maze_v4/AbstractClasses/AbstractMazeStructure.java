@@ -43,5 +43,17 @@ implements IMazeStructure
     {
         this.mazeCells.clear();
     }
+
+    @Override
+    public void setOriginCell(IMazeCell origin)
+    {
+        this.originCell = origin;
+    }
+
+    @Override
+    public void setExitCell(IMazeCell exit)
+    {
+        this.exitCell = exit;
+    }
     
 }
