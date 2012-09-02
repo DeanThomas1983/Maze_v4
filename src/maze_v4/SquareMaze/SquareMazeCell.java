@@ -45,12 +45,12 @@ public final class SquareMazeCell
         this.addNeighbourCell(cellToSouth,SOUTH);
         this.addNeighbourCell(cellToWest,WEST);
 
-        System.out.println("New cell " + identity + " created with "
-                + this.getNumberOfIntactWalls() + " intact walls");
-        System.out.println("Number of neighbours: "
-                + this.getTotalNumberOfNeighbours());
-        System.out.println("Number of directly accessible neighbours: "
-                + this.getNumberOfAccessibleNeighbours());
-        System.out.println();
+        //System.out.println("New cell " + identity + " created with "
+        //        + this.getNumberOfIntactWalls() + " intact walls");
+        //System.out.println("Number of neighbours: "
+        //        + this.getTotalNumberOfNeighbours());
+        //System.out.println("Number of directly accessible neighbours: "
+        //        + this.getNumberOfAccessibleNeighbours());
+        //System.out.println();
     }
 }

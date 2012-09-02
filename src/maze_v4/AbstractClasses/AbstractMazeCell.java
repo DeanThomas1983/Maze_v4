@@ -36,9 +36,10 @@ public class AbstractMazeCell
             neighbourIndex -= 4;
         }
 
+        this.getWalls().get(location).setConnectedCell(neighbour);
+        
         if (this.getWalls().get(location).getConnectedCell() != null)
         {
-            this.getWalls().get(location).setConnectedCell(neighbour);
             neighbour.getWalls().get(neighbourIndex).setConnectedCell(this);
         }
     }
