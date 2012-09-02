@@ -6,21 +6,20 @@ package maze_v4.AbstractClasses;
 
 import java.util.ArrayList;
 import maze_v4.Interfaces.IMazeCell;
-import maze_v4.Interfaces.IMazeGenerationAlgorithm;
 import maze_v4.Interfaces.IMazeStructure;
 
 /**
  *
  * @author dean
  */
-public class AbstractMazeStructure 
+public class AbstractMazeStructure
 implements IMazeStructure
 {
     IMazeCell originCell;
     IMazeCell exitCell;
-    
+
     protected ArrayList<IMazeCell> mazeCells = new ArrayList<IMazeCell>();
-    
+
     @Override
     public ArrayList<IMazeCell> getMazeCells()
     {
@@ -56,12 +55,4 @@ implements IMazeStructure
     {
         this.exitCell = exit;
     }
-
-    @Override
-    public void generateMaze(IMazeGenerationAlgorithm mazeGenerationAlgorithm)
-    {
-        mazeGenerationAlgorithm.generateMaze();
-    }
-    
-    
 }
