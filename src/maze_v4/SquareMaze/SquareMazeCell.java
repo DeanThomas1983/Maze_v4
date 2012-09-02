@@ -6,6 +6,7 @@ package maze_v4.SquareMaze;
 
 import maze_v4.AbstractClasses.AbstractMazeCell;
 import maze_v4.Interfaces.IMazeCell;
+import maze_v4.Wall;
 
 /**
  *
@@ -33,10 +34,16 @@ public final class SquareMazeCell
                           IMazeCell cellToWest)
     {
         this.identity = identity;
-        this.addNeighbourCell(cellToNorth);
-        this.addNeighbourCell(cellToEast);
-        this.addNeighbourCell(cellToSouth);
-        this.addNeighbourCell(cellToWest);
+        
+        this.walls.add(new Wall(this,null));
+        this.walls.add(new Wall(this,null));
+        this.walls.add(new Wall(this,null));
+        this.walls.add(new Wall(this,null));
+        
+        this.addNeighbourCell(cellToNorth,NORTH);
+        this.addNeighbourCell(cellToEast,EAST);
+        this.addNeighbourCell(cellToSouth,SOUTH);
+        this.addNeighbourCell(cellToWest,WEST);
 
         System.out.println("New cell " + identity + " created with "
                 + this.getNumberOfIntactWalls() + " intact walls");

@@ -17,23 +17,29 @@ import maze_v4.WallList;
 public class AbstractMazeCell
         implements IMazeCell
 {
+
     private Random random = new Random();
     protected String identity;
 
     @Override
     public String toString()
     {
-        return this.identity; 
+        return this.identity;
     }
-    
-    @Override
-    public void addNeighbourCell(IMazeCell neighbour)
-    {
-        this.walls.add(new Wall(this, neighbour));
 
-        if (neighbour != null)
+    @Override
+    public void addNeighbourCell(IMazeCell neighbour, int location)
+    {
+        int neighbourIndex = location + 2;
+        if (neighbourIndex > 3)
         {
-            neighbour.getWalls().add(new Wall(neighbour, this));
+            neighbourIndex -= 4;
+        }
+
+        if (this.getWalls().get(location).getConnectedCell() != null)
+        {
+            this.getWalls().get(location).setConnectedCell(neighbour);
+            neighbour.getWalls().get(neighbourIndex).setConnectedCell(this);
         }
     }
     /**

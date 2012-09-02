@@ -19,7 +19,7 @@ public interface IMazeCell
     public int getNumberOfIntactWalls();
     public int getNumberOfAccessibleNeighbours();
     public int getTotalNumberOfNeighbours();
-    public void addNeighbourCell(IMazeCell neighbour);
+    public void addNeighbourCell(IMazeCell neighbour, int location);
     public ArrayList<IMazeCell> getListedOfNeighboursWithAllWallsIntact();
     public IMazeCell getRandomNeighbourCell();
 }

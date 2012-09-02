@@ -44,5 +44,8 @@ public class Wall
         return this.connectedCell;
     }
     
-     
+    public void setConnectedCell(IMazeCell mazeCell)
+    {
+        this.connectedCell = mazeCell;
+    }
 }
