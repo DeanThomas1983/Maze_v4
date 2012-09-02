@@ -6,6 +6,7 @@ package maze_v4.AbstractClasses;
 
 import java.util.ArrayList;
 import maze_v4.Interfaces.IMazeCell;
+import maze_v4.Interfaces.IMazeGenerationAlgorithm;
 import maze_v4.Interfaces.IMazeStructure;
 
 /**
@@ -55,5 +56,12 @@ implements IMazeStructure
     {
         this.exitCell = exit;
     }
+
+    @Override
+    public void generateMaze(IMazeGenerationAlgorithm mazeGenerationAlgorithm)
+    {
+        mazeGenerationAlgorithm.generateMaze();
+    }
+    
     
 }

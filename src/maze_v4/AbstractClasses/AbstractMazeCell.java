@@ -17,17 +17,18 @@ import maze_v4.WallList;
 public class AbstractMazeCell
         implements IMazeCell
 {
+
     private Random random = new Random();
     private String identity;
 
     @Override
     public void addNeighbourCell(IMazeCell neighbour)
     {
-        this.walls.add(new Wall(this,neighbour));
-        
+        this.walls.add(new Wall(this, neighbour));
+
         if (neighbour != null)
         {
-            neighbour.getWalls().add(new Wall(neighbour,this));
+            neighbour.getWalls().add(new Wall(neighbour, this));
         }
     }
     /**
@@ -104,29 +105,32 @@ public class AbstractMazeCell
     public ArrayList<IMazeCell> getListedOfNeighboursWithAllWallsIntact()
     {
         ArrayList<IMazeCell> result = new ArrayList<IMazeCell>();
-        
+
         for (Wall w : walls)
         {
-            if (w.getConnectedCell().getNumberOfIntactWalls() 
-                    == w.getConnectedCell().getWallCount())
+            if (w.getConnectedCell() != null)
             {
-                result.add(w.getConnectedCell());
+                if (w.getConnectedCell().getNumberOfIntactWalls()
+                        == w.getConnectedCell().getWallCount())
+                {
+                    result.add(w.getConnectedCell());
+                }
             }
         }
         return result;
     }
-    
+
     @Override
     public IMazeCell getRandomNeighbourCell()
     {
         IMazeCell result;
-        
+
         int indexOfWallToDemolish = random.nextInt(this.getWallCount());
-        
+
         this.getWalls().get(indexOfWallToDemolish).setBlocked(false);
-        
+
         result = this.getWalls().get(indexOfWallToDemolish).getConnectedCell();
-        
+
         return result;
     }
 }

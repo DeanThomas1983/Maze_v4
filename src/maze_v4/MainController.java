@@ -4,6 +4,8 @@
  */
 package maze_v4;
 
+import MazeGenerator.DepthFirstMazeGenerator;
+import maze_v4.Interfaces.IMazeGenerationAlgorithm;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.SquareMaze.SquareMazeStructure;
 import maze_v4.ViewComponents.MazeTestForm;
@@ -23,6 +25,9 @@ public class MainController
         MazeTestForm mazeTestForm;
     
         dataModel = DataModel.getInstance();
+        IMazeGenerationAlgorithm mazeGeneratorAlgorithm
+                = new DepthFirstMazeGenerator(dataModel.mazeStructure);
+        dataModel.getMazeStructure().generateMaze(mazeGeneratorAlgorithm);
         
         mazeTestForm = new MazeTestForm();
         mazeTestForm.setVisible(true);

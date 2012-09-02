@@ -6,6 +6,7 @@ package MazeGenerator;
 
 import java.util.Random;
 import java.util.Stack;
+import maze_v4.AbstractClasses.AbstractMazeGenerator;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeGenerationAlgorithm;
 import maze_v4.Interfaces.IMazeStructure;
@@ -14,16 +15,15 @@ import maze_v4.Interfaces.IMazeStructure;
  *
  * @author dean
  */
-public class DepthFirstMazeGenerator implements IMazeGenerationAlgorithm
+public final class DepthFirstMazeGenerator 
+extends AbstractMazeGenerator
+implements IMazeGenerationAlgorithm
 {
-    private Random random = new Random();
-    IMazeStructure mazeStructure;
-    
     public DepthFirstMazeGenerator(IMazeStructure mazeStructure)
     {
-        this.mazeStructure = mazeStructure;
+        super(mazeStructure);
     }
-
+    
     @Override
     public void generateMaze()
     {
@@ -55,9 +55,5 @@ public class DepthFirstMazeGenerator implements IMazeGenerationAlgorithm
         this.mazeStructure.setExitCell(currentCell);
     }
 
-    private IMazeCell chooseOriginCell()
-    {
-        return this.mazeStructure.getMazeCells().get(
-                random.nextInt(this.mazeStructure.getMazeCells().size()));
-    }
+    
 }
