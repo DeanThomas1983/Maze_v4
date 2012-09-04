@@ -9,25 +9,26 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
+import maze_v4.DataModel;
+import maze_v4.Interfaces.IDisplayElement;
 import maze_v4.Interfaces.IMazeRenderer;
+import maze_v4.Interfaces.IMazeStructure;
+import maze_v4.Interfaces.IObserver;
 import maze_v4.SquareMaze.SquareMazeCell;
-import maze_v4.SquareMaze.SquareMazeStructure;
 
 /**
  *
  * @author dean
  */
 public class SquareMazeRenderer
-        implements IMazeRenderer
+implements IMazeRenderer, IObserver, IDisplayElement
 {
 
     public static final int CELL_WIDTH = 32;
     public static final int CELL_HEIGHT = 32;
-    private SquareMazeStructure mazeStructure;
+    private IMazeStructure mazeStructure;
 
-    public SquareMazeRenderer(SquareMazeStructure mazeStructure)
+    public SquareMazeRenderer(IMazeStructure mazeStructure)
     {
         this.mazeStructure = mazeStructure;
     }
@@ -55,40 +56,40 @@ public class SquareMazeRenderer
 
         return image;
     }
-    
+
     private int indexOfCell(int col, int row)
     {
         return row * this.mazeStructure.getWidth() + col;
     }
-    
+
     private Image drawCell(int index)
     {
-        BufferedImage result = new BufferedImage(CELL_WIDTH, 
+        BufferedImage result = new BufferedImage(CELL_WIDTH,
                                                  CELL_HEIGHT,
                                                  BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = result.createGraphics();
-        
+
         if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.NORTH).getBlocked())
         {
             drawNorthWall(graphics);
         }
-        
+
         if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.EAST).getBlocked())
         {
             drawEastWall(graphics);
         }
-        
+
         if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.SOUTH).getBlocked())
         {
             drawSouthWall(graphics);
         }
-        
+
         if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.WEST).getBlocked())
         {
             drawWestWall(graphics);
         }
-        
-        
+
+
         return result;
     }
 
@@ -96,19 +97,32 @@ public class SquareMazeRenderer
     {
         g.drawLine(0,0,CELL_WIDTH-1,0);
     }
-    
+
     private void drawSouthWall(Graphics g)
     {
         g.drawLine(0,CELL_HEIGHT-1,CELL_WIDTH-1,CELL_HEIGHT-1);
     }
-    
+
     private void drawWestWall(Graphics g)
     {
         g.drawLine(0, 0, 0, CELL_HEIGHT-1);
     }
-    
+
     private void drawEastWall(Graphics g)
     {
         g.drawLine(CELL_WIDTH-1, 0, CELL_WIDTH-1, CELL_HEIGHT-1);
+    }
+
+    @Override
+    public void update()
+    {
+        mazeStructure = DataModel.getInstance().getMazeStructure();
+
+    }
+
+    @Override
+    public void display()
+    {
+        this.drawMaze();
     }
 }

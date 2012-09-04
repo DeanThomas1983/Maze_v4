@@ -18,4 +18,6 @@ public interface IMazeStructure
     public IMazeCell getExitCell();
     public void setExitCell(IMazeCell exit);
     public void clear();
+    public int getWidth();
+    public int getHeight();
 }

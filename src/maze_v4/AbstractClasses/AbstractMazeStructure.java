@@ -12,7 +12,7 @@ import maze_v4.Interfaces.IMazeStructure;
  *
  * @author dean
  */
-public class AbstractMazeStructure
+public abstract class AbstractMazeStructure
 implements IMazeStructure
 {
     IMazeCell originCell;
@@ -55,4 +55,10 @@ implements IMazeStructure
     {
         this.exitCell = exit;
     }
+
+    @Override
+    abstract public int getWidth();
+
+    @Override
+    abstract public int getHeight();
 }
