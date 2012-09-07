@@ -72,7 +72,9 @@ implements IObserver, ISubject, IMazeStructure
                     cellToWest = this.mazeCells.get((col - 1) + (row * height));
                 }
 
-                IMazeCell mazeCell = MazeCellFactory.getMazeCell(EnumMazeCellType.SQUARE_MAZE_CELL);
+                IMazeCell mazeCell =
+                        MazeCellFactory.getMazeCell(EnumMazeCellType.SQUARE_MAZE_CELL,
+                                                    "[" + col + "," + row + "]");
 
                 mazeCell.addNeighbourCell(cellToNorth, SquareMazeCell.NORTH);
                 mazeCell.addNeighbourCell(cellToWest, SquareMazeCell.WEST);

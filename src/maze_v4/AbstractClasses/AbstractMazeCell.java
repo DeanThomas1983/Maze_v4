@@ -151,6 +151,8 @@ public class AbstractMazeCell implements IMazeCell
 
         result = this.getWalls().get(indexOfWallToDemolish).getConnectedCell();
 
+        update();
+
         return result;
     }
 

@@ -22,4 +22,13 @@ public class MazeCellFactory
         }
         return null;
     }
+
+    public static IMazeCell getMazeCell(EnumMazeCellType type, String identifier)
+    {
+        switch (type)
+        {
+            case SQUARE_MAZE_CELL: return new SquareMazeCell(identifier);
+        }
+        return null;
+    }
 }
