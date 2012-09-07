@@ -7,6 +7,9 @@ package maze_v4.AbstractClasses;
 import java.util.ArrayList;
 import java.util.Random;
 import maze_v4.Interfaces.IMazeCell;
+import maze_v4.Interfaces.IMazeStructure;
+import maze_v4.Interfaces.IObserver;
+import maze_v4.Interfaces.ISubject;
 import maze_v4.SquareMaze.SquareMazeCell;
 import maze_v4.Wall;
 import maze_v4.WallList;
@@ -16,13 +19,16 @@ import maze_v4.WallList;
  * @author dean
  */
 public class AbstractMazeCell
-        implements IMazeCell
+        implements IMazeCell//,
+        //IObserver,
+        //ISubject
 {
+    private IMazeStructure parent;
 
     private Random random = new Random();
     protected String identity;
-    
-    
+
+
     @Override
     public String toString()
     {
@@ -33,9 +39,9 @@ public class AbstractMazeCell
     public void addNeighbourCell(IMazeCell neighbour, int location)
     {
         int neighbourIndex = SquareMazeCell.getOppositeDirection(location);
-        
+
         this.getWalls().get(location).setConnectedCell(neighbour);
-        
+
         if (this.getWalls().get(location).getConnectedCell() != null)
         {
             neighbour.getWalls().get(neighbourIndex).setConnectedCell(this);
@@ -141,15 +147,39 @@ public class AbstractMazeCell
 
         } while (this.getWalls().get(indexOfWallToDemolish).getConnectedCell()
                 == null);
-        
-        int neighbourIndexOfWallToDemolish = 
+
+        int neighbourIndexOfWallToDemolish =
                 SquareMazeCell.getOppositeDirection(indexOfWallToDemolish);
-        
+
         this.getWalls().get(indexOfWallToDemolish).setBlocked(false);
         this.getWalls().get(indexOfWallToDemolish).getConnectedCell().getWalls().get(neighbourIndexOfWallToDemolish).setBlocked(false);
-        
+
         result = this.getWalls().get(indexOfWallToDemolish).getConnectedCell();
 
         return result;
+    }
+
+    //@Override
+    protected void update()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    //@Override
+    protected void registerObserver(IObserver o)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    //@Override
+    protected void removeObserver(IObserver o)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    //@Override
+    protected void notifyObservers()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

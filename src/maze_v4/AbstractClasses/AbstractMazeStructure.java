@@ -5,60 +5,107 @@
 package maze_v4.AbstractClasses;
 
 import java.util.ArrayList;
+import maze_v4.DataModel;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeStructure;
+import maze_v4.Interfaces.IObserver;
+import maze_v4.Interfaces.ISubject;
 
 /**
  *
  * @author dean
  */
 public abstract class AbstractMazeStructure
-implements IMazeStructure
+//implements IMazeStructure//,
+//IObserver,
+//ISubject
 {
+    DataModel parent;
+
+    ArrayList<IObserver> observers = new ArrayList<IObserver>();
     IMazeCell originCell;
     IMazeCell exitCell;
 
     protected ArrayList<IMazeCell> mazeCells = new ArrayList<IMazeCell>();
 
-    @Override
+    //@Override
     public ArrayList<IMazeCell> getMazeCells()
     {
         return mazeCells;
     }
 
-    @Override
+    //@Override
     public IMazeCell getOriginCell()
     {
         return originCell;
     }
 
-    @Override
+    //@Override
     public IMazeCell getExitCell()
     {
         return exitCell;
     }
 
-    @Override
+    //@Override
     public void clear()
     {
         this.mazeCells.clear();
     }
 
-    @Override
+    //@Override
     public void setOriginCell(IMazeCell origin)
     {
         this.originCell = origin;
     }
 
-    @Override
+    //@Override
     public void setExitCell(IMazeCell exit)
     {
         this.exitCell = exit;
     }
 
-    @Override
-    abstract public int getWidth();
+    public AbstractMazeStructure(DataModel parent)
+    {
+        this.parent = parent;
+    }
 
-    @Override
-    abstract public int getHeight();
+    private AbstractMazeStructure()
+    {
+        //
+    }
+
+    //@Override
+    public void update()
+    {
+        this.notifyObservers();
+    }
+
+    //@Override
+    public void registerObserver(IObserver o)
+    {
+        if (!this.observers.contains(o))
+        {
+            this.observers.add(o);
+        }
+    }
+
+    //@Override
+    public void removeObserver(IObserver o)
+    {
+        if (this.observers.contains(o))
+        {
+            this.observers.remove(o);
+        }
+    }
+
+    //@Override
+    public void notifyObservers()
+    {
+        for (IObserver o : this.observers)
+        {
+            o.update();
+        }
+    }
+
+
 }

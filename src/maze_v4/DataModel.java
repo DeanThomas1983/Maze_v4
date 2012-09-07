@@ -4,6 +4,7 @@
  */
 package maze_v4;
 
+import MazeGenerator.EnumMazeStructureType;
 import MazeGenerator.MazeGenerator;
 import java.util.ArrayList;
 import maze_v4.Interfaces.IMazeStructure;
@@ -16,7 +17,8 @@ import maze_v4.SquareMaze.SquareMazeStructure;
  * @author dean
  */
 public class DataModel
-        implements ISubject
+implements ISubject,
+IObserver
 {
 
     private volatile static DataModel uniqueInstance;
@@ -61,7 +63,9 @@ public class DataModel
      */
     private DataModel()
     {
-        mazeStructure = new SquareMazeStructure(5, 5);
+        mazeStructure = MazeStructureFactory.getMazeStructure(EnumMazeStructureType.SQUARE_MAZE);
+        mazeStructure.registerObserver(this);
+        
         mazeGenerator = new MazeGenerator(mazeStructure);
 
     }
@@ -97,7 +101,6 @@ public class DataModel
         if (!this.observers.contains(o))
         {
             this.observers.add(o);
-
         }
     }
 
@@ -113,9 +116,16 @@ public class DataModel
     @Override
     public void notifyObservers()
     {
-        for (IObserver o : observers)
+        for (IObserver o : this.observers)
         {
             o.update();
         }
     }
+
+    @Override
+    public void update()
+    {
+        this.notifyObservers();
+    }
+
 }

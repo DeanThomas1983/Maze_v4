@@ -5,12 +5,13 @@
 package maze_v4.Interfaces;
 
 import java.util.ArrayList;
+import maze_v4.DataModel;
 
 /**
  *
  * @author dean
  */
-public interface IMazeStructure
+public interface IMazeStructure extends ISubject, IObserver
 {
     public ArrayList<IMazeCell> getMazeCells();
     public IMazeCell getOriginCell();
@@ -20,4 +21,5 @@ public interface IMazeStructure
     public void clear();
     public int getWidth();
     public int getHeight();
+
 }
