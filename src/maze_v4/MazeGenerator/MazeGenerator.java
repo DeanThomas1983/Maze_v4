@@ -50,7 +50,7 @@ public class MazeGenerator
     {
         //  Create a new task
         DepthFirstMazeGeneratorTask mazeGeneratorTask
-                = new DepthFirstMazeGeneratorTask(this.mazeStructure);
+                = new DepthFirstMazeGeneratorTask(this.mazeStructure,500);
         //  Schedule to start almost immediately
         this.executorService.schedule(
                 mazeGeneratorTask, 1, TimeUnit.MILLISECONDS);

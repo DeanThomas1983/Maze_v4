@@ -7,6 +7,8 @@ package maze_v4.MazeGenerator;
 import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeGeneratorTask;
 import maze_v4.Interfaces.IMazeStructure;
@@ -16,32 +18,35 @@ import maze_v4.Interfaces.IMazeStructure;
  * @author dean
  */
 public final class DepthFirstMazeGeneratorTask
-implements IMazeGeneratorTask,
-Callable<Void>
+        implements IMazeGeneratorTask,
+                   Callable<Void>
 {
+
     Random random = new Random();
     IMazeStructure mazeStructure;
+    Integer pauseBetweenSteps = 0;
 
     /**
-     *  Create a new task and specify the maze structure which it will work
-     *  with
+     * Create a new task and specify the maze structure which it will work with
      *
-     *  @author dean
-     *  @since 2-9-2012
+     * @author dean
+     * @since 2-9-2012
      *
-     *  @param mazeStructure the MazeStructure in which the generated maze
-     *                       will reside
+     * @param mazeStructure the MazeStructure in which the generated maze will
+     *                      reside
      */
-    public DepthFirstMazeGeneratorTask(IMazeStructure mazeStructure)
+    public DepthFirstMazeGeneratorTask(IMazeStructure mazeStructure,
+                                       Integer pauseBetweenSteps)
     {
         this.mazeStructure = mazeStructure;
+        this.pauseBetweenSteps = pauseBetweenSteps;
     }
 
     /**
-     *  Generate a new maze using the Depth First Algorithm
+     * Generate a new maze using the Depth First Algorithm
      *
-     *  @author dean
-     *  @since 2-9-2012
+     * @author dean
+     * @since 2-9-2012
      */
     private void generateMaze()
     {
@@ -57,8 +62,17 @@ Callable<Void>
 
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
-            System.out.println("Current cell has " +
-                    currentCell.getListedOfNeighboursWithAllWallsIntact().size()
+            try
+            {
+                Thread.sleep(pauseBetweenSteps);
+            }
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(DepthFirstMazeGeneratorTask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            System.out.println("Current cell has "
+                    + currentCell.getListedOfNeighboursWithAllWallsIntact().size()
                     + " neighbour with all walls intact");
             for (IMazeCell c : currentCell.getListedOfNeighboursWithAllWallsIntact())
             {
@@ -87,12 +101,12 @@ Callable<Void>
     }
 
     /**
-     *  Choose a random cell from which to grow the maze from
+     * Choose a random cell from which to grow the maze from
      *
-     *  @author dean
-     *  @since 2-9-2012
+     * @author dean
+     * @since 2-9-2012
      *
-     *  @return a random cell with the maze structure
+     * @return a random cell with the maze structure
      */
     private IMazeCell chooseOriginCell()
     {
@@ -101,15 +115,15 @@ Callable<Void>
     }
 
     /**
-     *  Call the thread to begin generating a maze in the specified structure
-     *  array
+     * Call the thread to begin generating a maze in the specified structure
+     * array
      *
-     *  @author dean
-     *  @since 2-9-2012
+     * @author dean
+     * @since 2-9-2012
      *
-     *  @return Void
+     * @return Void
      *
-     *  @throws Exception
+     * @throws Exception
      */
     @Override
     public Void call() throws Exception
@@ -122,5 +136,4 @@ Callable<Void>
         }
         return null;
     }
-
 }
