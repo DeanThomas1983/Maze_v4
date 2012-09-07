@@ -96,7 +96,6 @@ implements IObserver, ISubject
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         dataModel.getMazeGenerator().generateMaze();
-        this.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -43,6 +43,8 @@ implements IObserver, ISubject
     {
         super.paint(g);
 
+        System.out.println("MazePanel requesting new image");
+
         g.drawImage(mazeRenderer.drawMaze(), 0, 0, this);
     }
 
@@ -79,6 +81,8 @@ implements IObserver, ISubject
     public void update()
     {
         System.out.println(this.getClass().getSimpleName() + " updated");
+
+        this.repaint();
 
         this.notifyObservers();
     }
