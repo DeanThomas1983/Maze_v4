@@ -5,8 +5,11 @@
 package maze_v4.ViewComponents;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import maze_v4.DataModel;
 import maze_v4.Interfaces.IMazeRenderer;
+import maze_v4.Interfaces.IObserver;
+import maze_v4.Interfaces.ISubject;
 import maze_v4.Renderers.SquareMazeRenderer;
 import maze_v4.SquareMaze.SquareMazeStructure;
 
@@ -15,33 +18,34 @@ import maze_v4.SquareMaze.SquareMazeStructure;
  * @author dean
  */
 public class MazePanel extends javax.swing.JPanel
+implements IObserver, ISubject
 {
+    ArrayList<IObserver> observers = new ArrayList<IObserver>();
+    Boolean isDonePainting;
+
     IMazeRenderer mazeRenderer;
-    DataModel dataModel;
     /**
      * Creates new form MazePanel
      */
     public MazePanel()
     {
         initComponents();
-        
-        this.dataModel = DataModel.getInstance();
-        
+
+
         //  Replace with factory...
-        this.mazeRenderer = new SquareMazeRenderer((SquareMazeStructure)dataModel.getMazeStructure());
-        
+        this.mazeRenderer = new SquareMazeRenderer();
+        //this.registerObserver(mazeRenderer);
+
     }
 
     @Override
     public void paint(Graphics g)
     {
         super.paint(g);
-        
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        
+
         g.drawImage(mazeRenderer.drawMaze(), 0, 0, this);
     }
-    
+
 
 
     /**
@@ -70,4 +74,45 @@ public class MazePanel extends javax.swing.JPanel
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update()
+    {
+        System.out.println(this.getClass().getSimpleName() + " updated");
+
+        this.notifyObservers();
+    }
+
+    @Override
+    public void registerObserver(IObserver o)
+    {
+        if (!this.observers.contains(o))
+        {
+            this.observers.add(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " has a new observer: " + o.getClass().getSimpleName());
+        }
+    }
+
+    @Override
+    public void removeObserver(IObserver o)
+    {
+        if (this.observers.contains(o))
+        {
+            this.observers.remove(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " deregistered an observer: " + o.getClass().getSimpleName());
+        }
+    }
+
+    @Override
+    public void notifyObservers()
+    {
+        for (IObserver o : this.observers)
+        {
+            o.update();
+        }
+    }
 }

@@ -10,7 +10,7 @@ import java.awt.Image;
  *
  * @author dean
  */
-public interface IMazeRenderer
+public interface IMazeRenderer extends IObserver
 {
     public Image drawMaze();
 }

@@ -9,8 +9,8 @@ import java.util.Random;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IObserver;
 import maze_v4.SquareMaze.SquareMazeCell;
-import maze_v4.Wall;
-import maze_v4.WallList;
+import maze_v4.Generics.Wall;
+import maze_v4.Generics.WallList;
 
 /**
  *
@@ -159,9 +159,9 @@ public class AbstractMazeCell implements IMazeCell
     @Override
     public void update()
     {
-        this.notifyObservers();
-
         System.out.println(this.getClass().getSimpleName() + " updated");
+
+        this.notifyObservers();
     }
 
     @Override

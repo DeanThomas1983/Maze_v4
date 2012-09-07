@@ -98,11 +98,22 @@ IObserver
     }
 
     @Override
+    public void update()
+    {
+        System.out.println(this.getClass().getSimpleName() + " updated");
+
+        this.notifyObservers();
+    }
+
+    @Override
     public void registerObserver(IObserver o)
     {
         if (!this.observers.contains(o))
         {
             this.observers.add(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " has a new observer: " + o.getClass().getSimpleName());
         }
     }
 
@@ -112,6 +123,9 @@ IObserver
         if (this.observers.contains(o))
         {
             this.observers.remove(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " deregistered an observer: " + o.getClass().getSimpleName());
         }
     }
 
@@ -123,11 +137,4 @@ IObserver
             o.update();
         }
     }
-
-    @Override
-    public void update()
-    {
-        this.notifyObservers();
-    }
-
 }

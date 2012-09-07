@@ -5,7 +5,7 @@
 package maze_v4.Interfaces;
 
 import java.util.ArrayList;
-import maze_v4.Wall;
+import maze_v4.Generics.Wall;
 
 /**
  *

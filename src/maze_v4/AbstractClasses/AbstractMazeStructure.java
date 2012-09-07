@@ -64,9 +64,9 @@ implements IMazeStructure
     @Override
     public void update()
     {
-        this.notifyObservers();
-
         System.out.println(this.getClass().getSimpleName() + " updated");
+
+        this.notifyObservers();
     }
 
     @Override

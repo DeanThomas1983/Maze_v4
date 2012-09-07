@@ -26,23 +26,21 @@ implements IMazeRenderer, IObserver, IDisplayElement
 
     public static final int CELL_WIDTH = 32;
     public static final int CELL_HEIGHT = 32;
-    private IMazeStructure mazeStructure;
-
-    public SquareMazeRenderer(IMazeStructure mazeStructure)
-    {
-        this.mazeStructure = mazeStructure;
-    }
 
     @Override
     public Image drawMaze()
     {
+        IMazeStructure mazeStructure = DataModel.getInstance().getMazeStructure();
+
         BufferedImage image =
                 new BufferedImage(mazeStructure.getWidth() * CELL_WIDTH,
                                   mazeStructure.getHeight() * CELL_HEIGHT,
                                   BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = image.createGraphics();
 
-        graphics.setColor(Color.red);
+        graphics.setPaint(Color.BLACK);
+
+        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 
         for (int row = 0; row < mazeStructure.getHeight(); row++)
         {
@@ -59,32 +57,36 @@ implements IMazeRenderer, IObserver, IDisplayElement
 
     private int indexOfCell(int col, int row)
     {
-        return row * this.mazeStructure.getWidth() + col;
+        IMazeStructure mazeStructure = DataModel.getInstance().getMazeStructure();
+
+        return row * mazeStructure.getWidth() + col;
     }
 
     private Image drawCell(int index)
     {
+        IMazeStructure mazeStructure = DataModel.getInstance().getMazeStructure();
+
         BufferedImage result = new BufferedImage(CELL_WIDTH,
                                                  CELL_HEIGHT,
                                                  BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = result.createGraphics();
 
-        if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.NORTH).getBlocked())
+        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.NORTH).getBlocked())
         {
             drawNorthWall(graphics);
         }
 
-        if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.EAST).getBlocked())
+        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.EAST).getBlocked())
         {
             drawEastWall(graphics);
         }
 
-        if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.SOUTH).getBlocked())
+        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.SOUTH).getBlocked())
         {
             drawSouthWall(graphics);
         }
 
-        if (this.mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.WEST).getBlocked())
+        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.WEST).getBlocked())
         {
             drawWestWall(graphics);
         }
@@ -116,13 +118,16 @@ implements IMazeRenderer, IObserver, IDisplayElement
     @Override
     public void update()
     {
-        mazeStructure = DataModel.getInstance().getMazeStructure();
+        System.out.println(this.getClass().getSimpleName() + " updated");
 
+        this.display();
     }
 
     @Override
     public void display()
     {
+        System.out.println("Re-rendering maze");
+        
         this.drawMaze();
     }
 }

@@ -19,11 +19,11 @@ public class MainController
     public static void main(String[] args)
     {
         DataModel dataModel;
-        MazeTestForm mazeTestForm;
+        View view;
 
         dataModel = DataModel.getInstance();
+        view = View.getInstance();
 
-        mazeTestForm = new MazeTestForm();
-        mazeTestForm.setVisible(true);
+        dataModel.registerObserver(view);
     }
 }
