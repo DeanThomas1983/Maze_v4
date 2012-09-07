@@ -7,9 +7,7 @@ package maze_v4.AbstractClasses;
 import java.util.ArrayList;
 import java.util.Random;
 import maze_v4.Interfaces.IMazeCell;
-import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;
-import maze_v4.Interfaces.ISubject;
 import maze_v4.SquareMaze.SquareMazeCell;
 import maze_v4.Wall;
 import maze_v4.WallList;
@@ -18,12 +16,9 @@ import maze_v4.WallList;
  *
  * @author dean
  */
-public class AbstractMazeCell
-        implements IMazeCell//,
-        //IObserver,
-        //ISubject
+public class AbstractMazeCell implements IMazeCell
 {
-    private IMazeStructure parent;
+    private ArrayList<IObserver> observers = new ArrayList<IObserver>();
 
     private Random random = new Random();
     protected String identity;
@@ -159,27 +154,44 @@ public class AbstractMazeCell
         return result;
     }
 
-    //@Override
-    protected void update()
+    @Override
+    public void update()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.notifyObservers();
+
+        System.out.println(this.getClass().getSimpleName() + " updated");
     }
 
-    //@Override
-    protected void registerObserver(IObserver o)
+    @Override
+    public void registerObserver(IObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!this.observers.contains(o))
+        {
+            this.observers.add(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " has a new observer: " + o.getClass().getSimpleName());
+        }
     }
 
-    //@Override
-    protected void removeObserver(IObserver o)
+    @Override
+    public void removeObserver(IObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (this.observers.contains(o))
+        {
+            this.observers.remove(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " deregistered an observer: " + o.getClass().getSimpleName());
+        }
     }
 
-    //@Override
-    protected void notifyObservers()
+    @Override
+    public void notifyObservers()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (IObserver o : this.observers)
+        {
+            o.update();
+        }
     }
 }

@@ -4,6 +4,8 @@ package maze_v4.SquareMaze;
  * To change this template, choose Tools | Templates and open the template in
  * the editor.
  */
+import MazeGenerator.EnumMazeCellType;
+import MazeGenerator.MazeCellFactory;
 import maze_v4.AbstractClasses.AbstractMazeStructure;
 import maze_v4.DataModel;
 import maze_v4.Interfaces.IMazeCell;
@@ -25,7 +27,7 @@ implements IObserver, ISubject, IMazeStructure
 
     public SquareMazeStructure()
     {
-        this(null, 5, 5);
+        this(5, 5);
     }
 
     @Override
@@ -40,9 +42,9 @@ implements IObserver, ISubject, IMazeStructure
         return height;
     }
 
-    public SquareMazeStructure(DataModel parent, int width, int height)
+    public SquareMazeStructure(int width, int height)
     {
-        super(parent);
+        super();
 
         this.width = width;
         this.height = height;
@@ -70,14 +72,15 @@ implements IObserver, ISubject, IMazeStructure
                     cellToWest = this.mazeCells.get((col - 1) + (row * height));
                 }
 
-                IMazeCell mazeCell = new SquareMazeCell("[" + col + ","
-                        + row + "]",
-                                                        cellToNorth,
-                                                        null,
-                                                        null,
-                                                        cellToWest);
+                IMazeCell mazeCell = MazeCellFactory.getMazeCell(EnumMazeCellType.SQUARE_MAZE_CELL);
+
+                mazeCell.addNeighbourCell(cellToNorth, SquareMazeCell.NORTH);
+                mazeCell.addNeighbourCell(cellToWest, SquareMazeCell.WEST);
+
+                mazeCell.registerObserver(this);
 
                 this.mazeCells.add(mazeCell);
+
             }
         }
 

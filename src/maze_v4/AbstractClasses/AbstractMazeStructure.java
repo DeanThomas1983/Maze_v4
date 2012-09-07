@@ -9,96 +9,91 @@ import maze_v4.DataModel;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;
-import maze_v4.Interfaces.ISubject;
 
 /**
  *
  * @author dean
  */
 public abstract class AbstractMazeStructure
-//implements IMazeStructure//,
+implements IMazeStructure
 //IObserver,
 //ISubject
 {
-    DataModel parent;
-
     ArrayList<IObserver> observers = new ArrayList<IObserver>();
     IMazeCell originCell;
     IMazeCell exitCell;
 
     protected ArrayList<IMazeCell> mazeCells = new ArrayList<IMazeCell>();
 
-    //@Override
+    @Override
     public ArrayList<IMazeCell> getMazeCells()
     {
         return mazeCells;
     }
 
-    //@Override
+    @Override
     public IMazeCell getOriginCell()
     {
         return originCell;
     }
 
-    //@Override
+    @Override
     public IMazeCell getExitCell()
     {
         return exitCell;
     }
 
-    //@Override
+    @Override
     public void clear()
     {
         this.mazeCells.clear();
     }
 
-    //@Override
+    @Override
     public void setOriginCell(IMazeCell origin)
     {
         this.originCell = origin;
     }
 
-    //@Override
+    @Override
     public void setExitCell(IMazeCell exit)
     {
         this.exitCell = exit;
     }
 
-    public AbstractMazeStructure(DataModel parent)
-    {
-        this.parent = parent;
-    }
-
-    private AbstractMazeStructure()
-    {
-        //
-    }
-
-    //@Override
+    @Override
     public void update()
     {
         this.notifyObservers();
+
+        System.out.println(this.getClass().getSimpleName() + " updated");
     }
 
-    //@Override
+    @Override
     public void registerObserver(IObserver o)
     {
         if (!this.observers.contains(o))
         {
             this.observers.add(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " has a new observer: " + o.getClass().getSimpleName());
         }
     }
 
-    //@Override
+    @Override
     public void removeObserver(IObserver o)
     {
         if (this.observers.contains(o))
         {
             this.observers.remove(o);
+
+            System.out.println(this.getClass().getSimpleName()
+                + " deregistered an observer: " + o.getClass().getSimpleName());
         }
     }
 
-    //@Override
+    @Override
     public void notifyObservers()
     {
         for (IObserver o : this.observers)

@@ -63,9 +63,10 @@ IObserver
      */
     private DataModel()
     {
-        mazeStructure = MazeStructureFactory.getMazeStructure(EnumMazeStructureType.SQUARE_MAZE);
+        mazeStructure = MazeStructureFactory.getMazeStructure(
+                EnumMazeStructureType.SQUARE_MAZE);
         mazeStructure.registerObserver(this);
-        
+
         mazeGenerator = new MazeGenerator(mazeStructure);
 
     }

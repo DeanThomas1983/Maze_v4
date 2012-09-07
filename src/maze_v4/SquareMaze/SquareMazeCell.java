@@ -18,7 +18,7 @@ public final class SquareMazeCell
 {
 
     public static int NUMBER_OF_WALLS = 4;
-    
+
     public static int NORTH = 0;
     public static int EAST = 1;
     public static int SOUTH = 2;
@@ -32,6 +32,11 @@ public final class SquareMazeCell
             result -= NUMBER_OF_WALLS;
         }
         return result;
+    }
+
+    public SquareMazeCell()
+    {
+        this("Untitled Cell");
     }
 
     public SquareMazeCell(String identity)

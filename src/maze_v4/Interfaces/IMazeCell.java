@@ -11,7 +11,7 @@ import maze_v4.Wall;
  *
  * @author dean
  */
-public interface IMazeCell
+public interface IMazeCell extends IObserver, ISubject
 {
     public String getIdentity();
     public ArrayList<Wall> getWalls();
