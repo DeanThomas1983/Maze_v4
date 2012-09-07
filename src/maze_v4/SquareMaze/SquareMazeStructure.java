@@ -4,8 +4,8 @@ package maze_v4.SquareMaze;
  * To change this template, choose Tools | Templates and open the template in
  * the editor.
  */
-import MazeGenerator.EnumMazeCellType;
-import MazeGenerator.MazeCellFactory;
+import maze_v4.Enums.EnumMazeCellType;
+import maze_v4.Factories.MazeCellFactory;
 import maze_v4.AbstractClasses.AbstractMazeStructure;
 import maze_v4.DataModel;
 import maze_v4.Interfaces.IMazeCell;

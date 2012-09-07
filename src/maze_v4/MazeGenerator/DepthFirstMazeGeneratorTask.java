@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package MazeGenerator;
+package maze_v4.MazeGenerator;
 
 import java.util.Random;
 import java.util.Stack;

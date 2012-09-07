@@ -4,8 +4,9 @@
  */
 package maze_v4;
 
-import MazeGenerator.EnumMazeStructureType;
-import MazeGenerator.MazeGenerator;
+import maze_v4.Factories.MazeStructureFactory;
+import maze_v4.Enums.EnumMazeStructureType;
+import maze_v4.MazeGenerator.MazeGenerator;
 import java.util.ArrayList;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;
