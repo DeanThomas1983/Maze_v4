@@ -9,9 +9,6 @@ import java.util.Random;
 import maze_v4.DebugVariables;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IObserver;
-import maze_v4.SquareMaze.SquareMazeCell;
-import maze_v4.Generics.Wall;
-import maze_v4.Generics.WallList;
 
 /**
  *
@@ -19,10 +16,11 @@ import maze_v4.Generics.WallList;
  */
 public class AbstractMazeCell implements IMazeCell
 {
-
     private ArrayList<IObserver> observers = new ArrayList<IObserver>();
     private Random random = new Random();
     protected String identity;
+    protected ArrayList<Boolean> walls = new ArrayList<Boolean>();
+    protected ArrayList<IMazeCell> connectedCells = new ArrayList<IMazeCell>();
 
     @Override
     public String toString()
@@ -30,137 +28,15 @@ public class AbstractMazeCell implements IMazeCell
         return this.identity;
     }
 
-    @Override
-    public void addNeighbourCell(IMazeCell neighbour, int location)
-    {
-        int neighbourIndex = SquareMazeCell.getOppositeDirection(location);
-
-        Wall newWall = new Wall(this, neighbour);
-
-        //  Share the same wall between the two cells
-        this.getWalls().replace(location, newWall);
-        neighbour.getWalls().replace(neighbourIndex, newWall);
-    }
-    /**
-     *
-     */
-    protected WallList walls;
-
-    @Override
-    public WallList getWalls()
-    {
-        return walls;
-    }
-
     public AbstractMazeCell()
     {
-        this.walls = new WallList(this);
-        walls.registerObserver(this);
-    }
 
-    @Override
-    public int getNumberOfIntactWalls()
-    {
-        int result = 0;
-
-        for (Wall w : walls)
-        {
-            if (w.getBlocked())
-            {
-                result++;
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public int getWallCount()
-    {
-        return this.walls.size();
-    }
-
-    @Override
-    public int getNumberOfAccessibleNeighbours()
-    {
-        int result = 0;
-
-        for (Wall w : walls)
-        {
-            if (!w.getBlocked() && (w.getConnectedCell() != null))
-            {
-                result++;
-            }
-        }
-
-        return result;
-    }
-
-    @Override
-    public int getTotalNumberOfNeighbours()
-    {
-        int result = 0;
-
-        for (Wall w : walls)
-        {
-            if (w.getConnectedCell() != null)
-            {
-                result++;
-            }
-        }
-
-        return result;
     }
 
     @Override
     public String getIdentity()
     {
         return this.identity;
-    }
-
-    @Override
-    public ArrayList<IMazeCell> getListedOfNeighboursWithAllWallsIntact()
-    {
-        ArrayList<IMazeCell> result = new ArrayList<IMazeCell>();
-
-        for (Wall w : this.walls)
-        {
-            System.out.print("Evaluating " + w.toString());
-
-            if (w.getConnectedCell() != null)
-            {
-                if (w.getConnectedCell().getNumberOfIntactWalls()
-                        == w.getConnectedCell().getWallCount())
-                {
-                    if (w.getOwner() == this)
-                    {
-                        result.add(w.getConnectedCell());
-                    }
-                    else
-                    {
-                        result.add(w.getOwner());
-                    }
-                    System.out.print(" PASS\n");
-                }
-                else
-                {
-                    System.out.print(" FAIL\n");
-                }
-            }
-            else
-            {
-                System.out.print(" FAIL\n");
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public IMazeCell chooseRandomIntactNeighbourCell(
-            ArrayList<IMazeCell> intactNeighbours)
-    {
-        int index = random.nextInt(intactNeighbours.size());
-
-        return intactNeighbours.get(index);
     }
 
     @Override
@@ -209,4 +85,46 @@ public class AbstractMazeCell implements IMazeCell
             o.update();
         }
     }
+
+    @Override
+    public ArrayList<IMazeCell> getListOfIntactNeighbours()
+    {
+        ArrayList<IMazeCell> result = new ArrayList<IMazeCell>();
+
+        for (IMazeCell cell : this.connectedCells)
+        {
+            if (cell != null)
+            {
+                if (cell.getNumberOfIntactWalls() == cell.getNumberOfWalls())
+                {
+                    result.add(cell);
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Integer getNumberOfIntactWalls()
+    {
+        Integer result = 0;
+
+        for (Boolean b : walls)
+        {
+            if (b)
+            {
+                result++;
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public Integer getNumberOfWalls()
+    {
+        return walls.size();
+    }
+
+
 }

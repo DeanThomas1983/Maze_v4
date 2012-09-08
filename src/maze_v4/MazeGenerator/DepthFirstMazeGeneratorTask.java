@@ -68,58 +68,7 @@ public final class DepthFirstMazeGeneratorTask
 
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
-            System.out.println("Neighbours with all walls intact: ");
 
-            ArrayList<IMazeCell> intactNeighbours =
-                    currentCell.getListedOfNeighboursWithAllWallsIntact();
-
-            for (IMazeCell c : intactNeighbours)
-            {
-                System.out.println(c.getIdentity());
-            }
-
-            if (!intactNeighbours.isEmpty())
-            {
-                IMazeCell nextCell =
-                        currentCell.chooseRandomIntactNeighbourCell(intactNeighbours);
-
-                System.out.println("Next cell will be: " + nextCell.getIdentity());
-
-                Wall wallToDemolish = currentCell.getWalls().findWall(nextCell);
-
-                if (wallToDemolish != null)
-                {
-                    System.out.println("Found a wall to demolish");
-                }
-
-                wallToDemolish.setBlocked(false);
-
-                currentCell = nextCell;
-
-                System.out.println("Current cell is " + currentCell.toString());
-                System.out.println();
-
-                cellStack.push(currentCell);
-
-                visitedCells++;
-            }
-            else
-            {
-                currentCell = cellStack.pop();
-
-                System.out.println("Moved back to " + currentCell.toString());
-                System.out.println();
-            }
-
-
-            try
-            {
-                Thread.sleep(pauseBetweenSteps);
-            }
-            catch (InterruptedException ex)
-            {
-                Logger.getLogger(DepthFirstMazeGeneratorTask.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
         this.mazeStructure.setExitCell(currentCell);
