@@ -40,8 +40,8 @@ public class AbstractMazeCell implements IMazeCell
         System.out.println("New wall: " + newWall.getOwner().getIdentity()
                 + " / " + newWall.getConnectedCell().getIdentity());
         //  Share the same wall between the two cells
-        //this.getWalls().replace(location, newWall);
-        //neighbour.getWalls().replace(neighbourIndex, newWall);
+        this.getWalls().replace(location, newWall);
+        neighbour.getWalls().replace(neighbourIndex, newWall);
     }
     /**
      *
@@ -144,11 +144,7 @@ public class AbstractMazeCell implements IMazeCell
         } while (this.getWalls().get(indexOfWallToDemolish).getConnectedCell()
                 == null);
 
-        int neighbourIndexOfWallToDemolish =
-                SquareMazeCell.getOppositeDirection(indexOfWallToDemolish);
-
         this.getWalls().get(indexOfWallToDemolish).setBlocked(false);
-        this.getWalls().get(indexOfWallToDemolish).getConnectedCell().getWalls().get(neighbourIndexOfWallToDemolish).setBlocked(false);
 
         result = this.getWalls().get(indexOfWallToDemolish).getConnectedCell();
 

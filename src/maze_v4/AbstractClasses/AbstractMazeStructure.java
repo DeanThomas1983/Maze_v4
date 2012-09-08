@@ -5,7 +5,6 @@
 package maze_v4.AbstractClasses;
 
 import java.util.ArrayList;
-import maze_v4.DataModel;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;

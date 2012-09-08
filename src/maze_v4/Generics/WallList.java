@@ -48,11 +48,11 @@ public class WallList extends ArrayList<Wall>
         return false;
     }
 
-    public boolean replace(Integer i, Wall e)
+    public boolean replace(Integer index, Wall newWall)
     {
         boolean result;
 
-        if (this.set(modCount, e) != null)
+        if (this.set(index, newWall) != null)
         {
             result = true;
         }

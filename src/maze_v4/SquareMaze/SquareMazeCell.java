@@ -6,7 +6,6 @@ package maze_v4.SquareMaze;
 
 import maze_v4.AbstractClasses.AbstractMazeCell;
 import maze_v4.Interfaces.IMazeCell;
-import maze_v4.Generics.Wall;
 
 /**
  *

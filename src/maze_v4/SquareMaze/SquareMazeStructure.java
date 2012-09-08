@@ -58,8 +58,8 @@ public final class SquareMazeStructure
         {
             for (int col = 0; col < this.width; col++)
             {
-                IMazeCell cellToNorth = null;
-                IMazeCell cellToWest = null;
+                IMazeCell cellToNorth;
+                IMazeCell cellToWest;
 
                 System.out.println("Generating cell " + col + "," + row);
 
@@ -74,7 +74,7 @@ public final class SquareMazeStructure
                             + indexOfCellToNorth(col, row) + " - "
                             + cellToNorth.getIdentity());
 
-                    //mazeCell.addNeighbourCell(cellToNorth, SquareMazeCell.NORTH);
+                    mazeCell.addNeighbourCell(cellToNorth, SquareMazeCell.NORTH);
 
                 }
 
@@ -85,7 +85,7 @@ public final class SquareMazeStructure
                             + indexOfCellToWest(col, row) + " - "
                             + cellToWest.getIdentity());
 
-                    //mazeCell.addNeighbourCell(cellToWest, SquareMazeCell.WEST);
+                    mazeCell.addNeighbourCell(cellToWest, SquareMazeCell.WEST);
                 }
 
 

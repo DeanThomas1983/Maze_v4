@@ -50,6 +50,10 @@ public final class DepthFirstMazeGeneratorTask
      */
     private void generateMaze()
     {
+        System.out.println();
+        System.out.println("Generating maze");
+        System.out.println("===============");
+
         Stack<IMazeCell> cellStack = new Stack<IMazeCell>();
         int visitedCells = 0;
 
@@ -58,7 +62,7 @@ public final class DepthFirstMazeGeneratorTask
 
         cellStack.push(currentCell);
         visitedCells++;
-        System.out.println("Current cell is " + currentCell.toString());
+        System.out.println("Current cell is: " + currentCell.toString());
 
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
