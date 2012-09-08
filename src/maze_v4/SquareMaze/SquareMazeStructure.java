@@ -5,6 +5,7 @@ package maze_v4.SquareMaze;
  * the editor.
  */
 import maze_v4.AbstractClasses.AbstractMazeStructure;
+import maze_v4.DebugVariables;
 import maze_v4.Enums.EnumMazeCellType;
 import maze_v4.Factories.MazeCellFactory;
 import maze_v4.Interfaces.IMazeCell;
@@ -47,12 +48,17 @@ public final class SquareMazeStructure
 
         this.width = width;
         this.height = height;
-        buildMaze();
+        setupMaze();
     }
 
-    private void buildMaze()
+    private void setupMaze()
     {
         this.mazeCells.clear();
+
+        if (DebugVariables.GRID_MAPPING_INFORMATION)
+        {
+            System.err.println("Laying out basic maze structure");
+        }
 
         for (int row = 0; row < this.height; row++)
         {
@@ -61,7 +67,10 @@ public final class SquareMazeStructure
                 IMazeCell cellToNorth;
                 IMazeCell cellToWest;
 
-                System.out.println("Generating cell " + col + "," + row);
+                if (DebugVariables.GRID_MAPPING_INFORMATION)
+                {
+                    System.out.println("Generating cell " + col + "," + row);
+                }
 
                 IMazeCell mazeCell = MazeCellFactory.getMazeCell(
                         EnumMazeCellType.SQUARE_MAZE_CELL,
@@ -70,10 +79,12 @@ public final class SquareMazeStructure
                 if (row > 0)
                 {
                     cellToNorth = this.mazeCells.get(indexOfCellToNorth(col, row));
-                    System.out.println("Cell to north is: "
-                            + indexOfCellToNorth(col, row) + " - "
-                            + cellToNorth.getIdentity());
-
+                    if (DebugVariables.GRID_MAPPING_INFORMATION)
+                    {
+                        System.out.println("Cell to north is: "
+                                + indexOfCellToNorth(col, row) + " - "
+                                + cellToNorth.getIdentity());
+                    }
                     mazeCell.addNeighbourCell(cellToNorth, SquareMazeCell.NORTH);
 
                 }
@@ -81,10 +92,12 @@ public final class SquareMazeStructure
                 if (col > 0)
                 {
                     cellToWest = this.mazeCells.get(indexOfCellToWest(col, row));
-                    System.out.println("Cell to west is: "
-                            + indexOfCellToWest(col, row) + " - "
-                            + cellToWest.getIdentity());
-
+                    if (DebugVariables.GRID_MAPPING_INFORMATION)
+                    {
+                        System.out.println("Cell to west is: "
+                                + indexOfCellToWest(col, row) + " - "
+                                + cellToWest.getIdentity());
+                    }
                     mazeCell.addNeighbourCell(cellToWest, SquareMazeCell.WEST);
                 }
 
@@ -97,9 +110,11 @@ public final class SquareMazeStructure
                 System.out.println();
             }
         }
-
-        System.out.println("Maze generated with: " + this.getMazeCells().size()
-                + " cells");
+        if (DebugVariables.GRID_MAPPING_INFORMATION)
+        {
+            System.out.println("Maze generated with: " + this.getMazeCells().size()
+                    + " cells");
+        }
     }
 
     private Integer indexOfCellToNorth(Integer col, Integer row)

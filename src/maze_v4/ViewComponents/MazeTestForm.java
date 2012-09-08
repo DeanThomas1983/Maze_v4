@@ -6,6 +6,7 @@ package maze_v4.ViewComponents;
 
 import java.util.ArrayList;
 import maze_v4.DataModel;
+import maze_v4.DebugVariables;
 import maze_v4.Interfaces.IObserver;
 import maze_v4.Interfaces.ISubject;
 import maze_v4.View;
@@ -15,8 +16,9 @@ import maze_v4.View;
  * @author dean
  */
 public class MazeTestForm extends javax.swing.JFrame
-implements IObserver, ISubject
+        implements IObserver, ISubject
 {
+
     DataModel dataModel = DataModel.getInstance();
     ArrayList<IObserver> observers = new ArrayList<IObserver>();
 
@@ -160,8 +162,10 @@ implements IObserver, ISubject
     @Override
     public void update()
     {
-        System.out.println(this.getClass().getSimpleName() + " updated");
-
+        if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+        {
+            System.out.println(this.getClass().getSimpleName() + " updated");
+        }
         this.notifyObservers();
     }
 
@@ -171,9 +175,11 @@ implements IObserver, ISubject
         if (!this.observers.contains(o))
         {
             this.observers.add(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " has a new observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " has a new observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 
@@ -183,9 +189,11 @@ implements IObserver, ISubject
         if (this.observers.contains(o))
         {
             this.observers.remove(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " deregistered an observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " deregistered an observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 

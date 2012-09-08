@@ -6,6 +6,7 @@ package maze_v4.AbstractClasses;
 
 import java.util.ArrayList;
 import java.util.Random;
+import maze_v4.DebugVariables;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IObserver;
 import maze_v4.SquareMaze.SquareMazeCell;
@@ -18,11 +19,10 @@ import maze_v4.Generics.WallList;
  */
 public class AbstractMazeCell implements IMazeCell
 {
-    private ArrayList<IObserver> observers = new ArrayList<IObserver>();
 
+    private ArrayList<IObserver> observers = new ArrayList<IObserver>();
     private Random random = new Random();
     protected String identity;
-
 
     @Override
     public String toString()
@@ -37,8 +37,8 @@ public class AbstractMazeCell implements IMazeCell
 
         Wall newWall = new Wall(this, neighbour);
 
-        System.out.println("New wall: " + newWall.getOwner().getIdentity()
-                + " / " + newWall.getConnectedCell().getIdentity());
+        System.out.println("New wall: Cell" + newWall.getOwner().getIdentity()
+                + " | Cell" + newWall.getConnectedCell().getIdentity());
         //  Share the same wall between the two cells
         this.getWalls().replace(location, newWall);
         neighbour.getWalls().replace(neighbourIndex, newWall);
@@ -141,7 +141,8 @@ public class AbstractMazeCell implements IMazeCell
         {
             indexOfWallToDemolish = random.nextInt(this.getWallCount());
 
-        } while (this.getWalls().get(indexOfWallToDemolish).getConnectedCell()
+        }
+        while (this.getWalls().get(indexOfWallToDemolish).getConnectedCell()
                 == null);
 
         this.getWalls().get(indexOfWallToDemolish).setBlocked(false);
@@ -156,8 +157,10 @@ public class AbstractMazeCell implements IMazeCell
     @Override
     public void update()
     {
-        System.out.println(this.getClass().getSimpleName() + " updated");
-
+        if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+        {
+            System.out.println(this.getClass().getSimpleName() + " updated");
+        }
         this.notifyObservers();
     }
 
@@ -167,9 +170,11 @@ public class AbstractMazeCell implements IMazeCell
         if (!this.observers.contains(o))
         {
             this.observers.add(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " has a new observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " has a new observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 
@@ -179,9 +184,11 @@ public class AbstractMazeCell implements IMazeCell
         if (this.observers.contains(o))
         {
             this.observers.remove(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " deregistered an observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " deregistered an observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 

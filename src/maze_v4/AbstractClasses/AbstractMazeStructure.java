@@ -5,6 +5,7 @@
 package maze_v4.AbstractClasses;
 
 import java.util.ArrayList;
+import maze_v4.DebugVariables;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;
@@ -14,14 +15,14 @@ import maze_v4.Interfaces.IObserver;
  * @author dean
  */
 public abstract class AbstractMazeStructure
-implements IMazeStructure
+        implements IMazeStructure
 //IObserver,
 //ISubject
 {
+
     ArrayList<IObserver> observers = new ArrayList<IObserver>();
     IMazeCell originCell;
     IMazeCell exitCell;
-
     protected ArrayList<IMazeCell> mazeCells = new ArrayList<IMazeCell>();
 
     @Override
@@ -63,8 +64,10 @@ implements IMazeStructure
     @Override
     public void update()
     {
-        System.out.println(this.getClass().getSimpleName() + " updated");
-
+        if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+        {
+            System.out.println(this.getClass().getSimpleName() + " updated");
+        }
         this.notifyObservers();
     }
 
@@ -74,9 +77,11 @@ implements IMazeStructure
         if (!this.observers.contains(o))
         {
             this.observers.add(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " has a new observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " has a new observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 
@@ -86,9 +91,11 @@ implements IMazeStructure
         if (this.observers.contains(o))
         {
             this.observers.remove(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " deregistered an observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " deregistered an observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 
@@ -100,6 +107,4 @@ implements IMazeStructure
             o.update();
         }
     }
-
-
 }

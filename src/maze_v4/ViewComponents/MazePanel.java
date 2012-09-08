@@ -7,6 +7,7 @@ package maze_v4.ViewComponents;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import maze_v4.DataModel;
+import maze_v4.DebugVariables;
 import maze_v4.Interfaces.IMazeRenderer;
 import maze_v4.Interfaces.IObserver;
 import maze_v4.Interfaces.ISubject;
@@ -18,12 +19,13 @@ import maze_v4.SquareMaze.SquareMazeStructure;
  * @author dean
  */
 public class MazePanel extends javax.swing.JPanel
-implements IObserver, ISubject
+        implements IObserver, ISubject
 {
+
     ArrayList<IObserver> observers = new ArrayList<IObserver>();
     Boolean isDonePainting;
-
     IMazeRenderer mazeRenderer;
+
     /**
      * Creates new form MazePanel
      */
@@ -47,8 +49,6 @@ implements IObserver, ISubject
 
         g.drawImage(mazeRenderer.drawMaze(), 0, 0, this);
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,8 +80,10 @@ implements IObserver, ISubject
     @Override
     public void update()
     {
-        System.out.println(this.getClass().getSimpleName() + " updated");
-
+        if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+        {
+            System.out.println(this.getClass().getSimpleName() + " updated");
+        }
         this.repaint();
 
         this.notifyObservers();
@@ -93,9 +95,11 @@ implements IObserver, ISubject
         if (!this.observers.contains(o))
         {
             this.observers.add(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " has a new observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " has a new observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 
@@ -105,9 +109,11 @@ implements IObserver, ISubject
         if (this.observers.contains(o))
         {
             this.observers.remove(o);
-
-            System.out.println(this.getClass().getSimpleName()
-                + " deregistered an observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " deregistered an observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 

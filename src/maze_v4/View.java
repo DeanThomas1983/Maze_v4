@@ -14,8 +14,9 @@ import maze_v4.ViewComponents.MazeTestForm;
  * @author dean
  */
 public final class View
-implements IObserver, ISubject
+        implements IObserver, ISubject
 {
+
     private volatile static View uniqueInstance;
     MazeTestForm mazeTestForm;
     ArrayList<IObserver> observers = new ArrayList<IObserver>();
@@ -45,8 +46,10 @@ implements IObserver, ISubject
     @Override
     public void update()
     {
-        System.out.println(this.getClass().getSimpleName() + " updated");
-
+        if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+        {
+            System.out.println(this.getClass().getSimpleName() + " updated");
+        }
         this.notifyObservers();
     }
 
@@ -57,8 +60,11 @@ implements IObserver, ISubject
         {
             this.observers.add(o);
 
-            System.out.println(this.getClass().getSimpleName()
-                + " has a new observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " has a new observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 
@@ -69,8 +75,11 @@ implements IObserver, ISubject
         {
             this.observers.remove(o);
 
-            System.out.println(this.getClass().getSimpleName()
-                + " deregistered an observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " deregistered an observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 

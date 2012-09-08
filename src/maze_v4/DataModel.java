@@ -18,8 +18,8 @@ import maze_v4.SquareMaze.SquareMazeStructure;
  * @author dean
  */
 public class DataModel
-implements ISubject,
-IObserver
+        implements ISubject,
+                   IObserver
 {
 
     private volatile static DataModel uniqueInstance;
@@ -48,7 +48,7 @@ IObserver
      * @since 1-9-2012
      *
      * @return MazeGenerator the maze generator used to schedule generation
-     * events
+     *         events
      */
     public MazeGenerator getMazeGenerator()
     {
@@ -100,7 +100,10 @@ IObserver
     @Override
     public void update()
     {
-        System.out.println(this.getClass().getSimpleName() + " updated");
+        if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+        {
+            System.out.println(this.getClass().getSimpleName() + " updated");
+        }
 
         this.notifyObservers();
     }
@@ -112,8 +115,11 @@ IObserver
         {
             this.observers.add(o);
 
-            System.out.println(this.getClass().getSimpleName()
-                + " has a new observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " has a new observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 
@@ -124,8 +130,11 @@ IObserver
         {
             this.observers.remove(o);
 
-            System.out.println(this.getClass().getSimpleName()
-                + " deregistered an observer: " + o.getClass().getSimpleName());
+            if (DebugVariables.SHOW_OBSERVER_INFORMATION)
+            {
+                System.out.println(this.getClass().getSimpleName()
+                        + " deregistered an observer: " + o.getClass().getSimpleName());
+            }
         }
     }
 

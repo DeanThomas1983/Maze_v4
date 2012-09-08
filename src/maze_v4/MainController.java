@@ -4,9 +4,6 @@
  */
 package maze_v4;
 
-import maze_v4.MazeGenerator.MazeGenerator;
-import maze_v4.ViewComponents.MazeTestForm;
-
 /**
  *
  * @author dean

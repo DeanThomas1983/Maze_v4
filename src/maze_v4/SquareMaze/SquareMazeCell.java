@@ -29,9 +29,6 @@ public final class SquareMazeCell
         if (result > (NUMBER_OF_WALLS - 1))
         {
             result -= NUMBER_OF_WALLS;
-
-            System.out.println("Direction: " + direction + " / "
-                    + " opposite: " + result);
         }
         return result;
     }

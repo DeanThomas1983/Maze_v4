@@ -24,8 +24,10 @@ public class SquareMazeRenderer
 implements IMazeRenderer, IObserver, IDisplayElement
 {
 
-    public static final int CELL_WIDTH = 32;
-    public static final int CELL_HEIGHT = 32;
+    private Color wallColor = Color.BLUE;
+
+    public static final int CELL_WIDTH = 64;
+    public static final int CELL_HEIGHT = 64;
 
     @Override
     public Image drawMaze()
@@ -70,6 +72,7 @@ implements IMazeRenderer, IObserver, IDisplayElement
                                                  CELL_HEIGHT,
                                                  BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = result.createGraphics();
+        graphics.setColor(wallColor);
 
         if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.NORTH).getBlocked())
         {
@@ -127,7 +130,7 @@ implements IMazeRenderer, IObserver, IDisplayElement
     public void display()
     {
         System.out.println("Re-rendering maze");
-        
+
         this.drawMaze();
     }
 }
