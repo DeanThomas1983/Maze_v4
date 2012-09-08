@@ -37,8 +37,6 @@ public class AbstractMazeCell implements IMazeCell
 
         Wall newWall = new Wall(this, neighbour);
 
-        System.out.println("New wall: Cell" + newWall.getOwner().getIdentity()
-                + " | Cell" + newWall.getConnectedCell().getIdentity());
         //  Share the same wall between the two cells
         this.getWalls().replace(location, newWall);
         neighbour.getWalls().replace(neighbourIndex, newWall);
@@ -46,12 +44,18 @@ public class AbstractMazeCell implements IMazeCell
     /**
      *
      */
-    protected WallList walls = new WallList(this);
+    protected WallList walls;
 
     @Override
     public WallList getWalls()
     {
         return walls;
+    }
+
+    public AbstractMazeCell()
+    {
+        this.walls = new WallList(this);
+        walls.registerObserver(this);
     }
 
     @Override
@@ -118,40 +122,45 @@ public class AbstractMazeCell implements IMazeCell
     {
         ArrayList<IMazeCell> result = new ArrayList<IMazeCell>();
 
-        for (Wall w : walls)
+        for (Wall w : this.walls)
         {
+            System.out.print("Evaluating " + w.toString());
+
             if (w.getConnectedCell() != null)
             {
                 if (w.getConnectedCell().getNumberOfIntactWalls()
                         == w.getConnectedCell().getWallCount())
                 {
-                    result.add(w.getConnectedCell());
+                    if (w.getOwner() == this)
+                    {
+                        result.add(w.getConnectedCell());
+                    }
+                    else
+                    {
+                        result.add(w.getOwner());
+                    }
+                    System.out.print(" PASS\n");
                 }
+                else
+                {
+                    System.out.print(" FAIL\n");
+                }
+            }
+            else
+            {
+                System.out.print(" FAIL\n");
             }
         }
         return result;
     }
 
     @Override
-    public IMazeCell getRandomNeighbourCell()
+    public IMazeCell chooseRandomIntactNeighbourCell(
+            ArrayList<IMazeCell> intactNeighbours)
     {
-        IMazeCell result;
-        int indexOfWallToDemolish;
-        do
-        {
-            indexOfWallToDemolish = random.nextInt(this.getWallCount());
+        int index = random.nextInt(intactNeighbours.size());
 
-        }
-        while (this.getWalls().get(indexOfWallToDemolish).getConnectedCell()
-                == null);
-
-        this.getWalls().get(indexOfWallToDemolish).setBlocked(false);
-
-        result = this.getWalls().get(indexOfWallToDemolish).getConnectedCell();
-
-        update();
-
-        return result;
+        return intactNeighbours.get(index);
     }
 
     @Override

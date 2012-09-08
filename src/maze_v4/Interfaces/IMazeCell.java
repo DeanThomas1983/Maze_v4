@@ -22,5 +22,5 @@ public interface IMazeCell extends IObserver, ISubject
     public int getTotalNumberOfNeighbours();
     public void addNeighbourCell(IMazeCell neighbour, int location);
     public ArrayList<IMazeCell> getListedOfNeighboursWithAllWallsIntact();
-    public IMazeCell getRandomNeighbourCell();
+    public IMazeCell chooseRandomIntactNeighbourCell(ArrayList<IMazeCell> intactNeighbours);
 }

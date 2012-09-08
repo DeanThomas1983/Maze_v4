@@ -12,4 +12,5 @@ public class DebugVariables
 {
     public static boolean SHOW_OBSERVER_INFORMATION = false;
     public static boolean GRID_MAPPING_INFORMATION = false;
+    public static boolean WALL_INFORMATION = false;
 }

@@ -40,6 +40,7 @@ public final class SquareMazeCell
 
     public SquareMazeCell(String identity)
     {
+        super();
         //  Create a new cell with no neighbours
         this.identity = identity;
         this.walls.fillWithBlanks(NUMBER_OF_WALLS);

@@ -4,11 +4,13 @@
  */
 package maze_v4.MazeGenerator;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import maze_v4.Generics.Wall;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeGeneratorTask;
 import maze_v4.Interfaces.IMazeStructure;
@@ -66,28 +68,36 @@ public final class DepthFirstMazeGeneratorTask
 
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
-            try
-            {
-                Thread.sleep(pauseBetweenSteps);
-            }
-            catch (InterruptedException ex)
-            {
-                Logger.getLogger(DepthFirstMazeGeneratorTask.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("Neighbours with all walls intact: ");
 
-            System.out.println("Current cell has "
-                    + currentCell.getListedOfNeighboursWithAllWallsIntact().size()
-                    + " neighbour with all walls intact");
-            for (IMazeCell c : currentCell.getListedOfNeighboursWithAllWallsIntact())
+            ArrayList<IMazeCell> intactNeighbours =
+                    currentCell.getListedOfNeighboursWithAllWallsIntact();
+
+            for (IMazeCell c : intactNeighbours)
             {
                 System.out.println(c.getIdentity());
             }
 
-            if (currentCell.getListedOfNeighboursWithAllWallsIntact().size() > 0)
+            if (!intactNeighbours.isEmpty())
             {
-                currentCell = currentCell.getRandomNeighbourCell();
+                IMazeCell nextCell =
+                        currentCell.chooseRandomIntactNeighbourCell(intactNeighbours);
+
+                System.out.println("Next cell will be: " + nextCell.getIdentity());
+
+                Wall wallToDemolish = currentCell.getWalls().findWall(nextCell);
+
+                if (wallToDemolish != null)
+                {
+                    System.out.println("Found a wall to demolish");
+                }
+
+                wallToDemolish.setBlocked(false);
+
+                currentCell = nextCell;
 
                 System.out.println("Current cell is " + currentCell.toString());
+                System.out.println();
 
                 cellStack.push(currentCell);
 
@@ -98,6 +108,17 @@ public final class DepthFirstMazeGeneratorTask
                 currentCell = cellStack.pop();
 
                 System.out.println("Moved back to " + currentCell.toString());
+                System.out.println();
+            }
+
+
+            try
+            {
+                Thread.sleep(pauseBetweenSteps);
+            }
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(DepthFirstMazeGeneratorTask.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
