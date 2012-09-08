@@ -5,6 +5,7 @@
 package maze_v4.Generics;
 
 import java.util.ArrayList;
+import maze_v4.Interfaces.IMazeCell;
 
 /**
  *
@@ -12,6 +13,18 @@ import java.util.ArrayList;
  */
 public class WallList extends ArrayList<Wall>
 {
+    IMazeCell mazeCell;
+
+    public WallList(IMazeCell mazeCell)
+    {
+        this.mazeCell = mazeCell;
+    }
+
+    private WallList()
+    {
+
+    }
+
     @Override
     public boolean add(Wall e)
     {
@@ -33,5 +46,29 @@ public class WallList extends ArrayList<Wall>
         }
 
         return false;
+    }
+
+    public boolean replace(Integer i, Wall e)
+    {
+        boolean result;
+
+        if (this.set(modCount, e) != null)
+        {
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    public void fillWithBlanks(Integer count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Wall newWall = new Wall(this.mazeCell);
+            this.add(newWall);
+        }
     }
 }

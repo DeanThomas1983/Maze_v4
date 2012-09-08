@@ -27,9 +27,12 @@ public final class SquareMazeCell
     public static int getOppositeDirection(int direction)
     {
         int result = direction + 2;
-        if (result > NUMBER_OF_WALLS - 1)
+        if (result > (NUMBER_OF_WALLS - 1))
         {
             result -= NUMBER_OF_WALLS;
+
+            System.out.println("Direction: " + direction + " / "
+                    + " opposite: " + result);
         }
         return result;
     }
@@ -42,33 +45,9 @@ public final class SquareMazeCell
     public SquareMazeCell(String identity)
     {
         //  Create a new cell with no neighbours
-        this(identity, null, null, null, null);
-    }
-
-    public SquareMazeCell(String identity,
-                          IMazeCell cellToNorth,
-                          IMazeCell cellToEast,
-                          IMazeCell cellToSouth,
-                          IMazeCell cellToWest)
-    {
         this.identity = identity;
-
-        this.walls.add(new Wall(this, null));
-        this.walls.add(new Wall(this, null));
-        this.walls.add(new Wall(this, null));
-        this.walls.add(new Wall(this, null));
-
-        this.addNeighbourCell(cellToNorth, NORTH);
-        this.addNeighbourCell(cellToEast, EAST);
-        this.addNeighbourCell(cellToSouth, SOUTH);
-        this.addNeighbourCell(cellToWest, WEST);
-
-        //System.out.println("New cell " + identity + " created with "
-        //        + this.getNumberOfIntactWalls() + " intact walls");
-        //System.out.println("Number of neighbours: "
-        //        + this.getTotalNumberOfNeighbours());
-        //System.out.println("Number of directly accessible neighbours: "
-        //        + this.getNumberOfAccessibleNeighbours());
-        //System.out.println();
+        this.walls.fillWithBlanks(NUMBER_OF_WALLS);
     }
+
+
 }

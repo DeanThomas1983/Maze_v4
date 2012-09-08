@@ -6,6 +6,7 @@ package maze_v4.Interfaces;
 
 import java.util.ArrayList;
 import maze_v4.Generics.Wall;
+import maze_v4.Generics.WallList;
 
 /**
  *
@@ -14,7 +15,7 @@ import maze_v4.Generics.Wall;
 public interface IMazeCell extends IObserver, ISubject
 {
     public String getIdentity();
-    public ArrayList<Wall> getWalls();
+    public WallList getWalls();
     public int getWallCount();
     public int getNumberOfIntactWalls();
     public int getNumberOfAccessibleNeighbours();

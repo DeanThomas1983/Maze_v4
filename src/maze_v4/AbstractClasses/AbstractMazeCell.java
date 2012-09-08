@@ -35,17 +35,18 @@ public class AbstractMazeCell implements IMazeCell
     {
         int neighbourIndex = SquareMazeCell.getOppositeDirection(location);
 
-        this.getWalls().get(location).setConnectedCell(neighbour);
+        Wall newWall = new Wall(this, neighbour);
 
-        if (this.getWalls().get(location).getConnectedCell() != null)
-        {
-            neighbour.getWalls().get(neighbourIndex).setConnectedCell(this);
-        }
+        System.out.println("New wall: " + newWall.getOwner().getIdentity()
+                + " / " + newWall.getConnectedCell().getIdentity());
+        //  Share the same wall between the two cells
+        //this.getWalls().replace(location, newWall);
+        //neighbour.getWalls().replace(neighbourIndex, newWall);
     }
     /**
      *
      */
-    protected WallList walls = new WallList();
+    protected WallList walls = new WallList(this);
 
     @Override
     public WallList getWalls()

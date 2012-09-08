@@ -97,4 +97,11 @@ public class Wall
     {
         this.connectedCell = mazeCell;
     }
+
+    public Wall(IMazeCell owner)
+    {
+        this.owner = owner;
+        this.connectedCell = null;
+        this.blocked = true;
+    }
 }
