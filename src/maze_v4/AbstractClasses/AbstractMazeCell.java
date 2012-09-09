@@ -18,7 +18,7 @@ import maze_v4.Interfaces.IObserver;
 public abstract class AbstractMazeCell implements IMazeCell
 {
     private ArrayList<IObserver> observers = new ArrayList<IObserver>();
-    protected Random random = new Random(1);
+    protected Random random = new Random();
     protected Point coordinates;
     protected Boolean walls[];
     protected ArrayList<IMazeCell> connectedCells = new ArrayList<IMazeCell>();

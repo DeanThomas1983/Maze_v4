@@ -23,7 +23,7 @@ public final class DepthFirstMazeGeneratorTask
                    Callable<Void>
 {
 
-    Random random = new Random(1);
+    Random random = new Random();
     IMazeStructure mazeStructure;
     Integer pauseBetweenSteps = 0;
 
@@ -88,8 +88,7 @@ public final class DepthFirstMazeGeneratorTask
             }
 
             System.out.println();
-            /*
- *
+
             try
             {
                 Thread.sleep(this.pauseBetweenSteps);
@@ -98,7 +97,7 @@ public final class DepthFirstMazeGeneratorTask
             {
                 Logger.getLogger(DepthFirstMazeGeneratorTask.class.getName()).log(Level.SEVERE, null, ex);
             }
-*/        }
+        }
 
         this.mazeStructure.setExitCell(currentCell);
     }
