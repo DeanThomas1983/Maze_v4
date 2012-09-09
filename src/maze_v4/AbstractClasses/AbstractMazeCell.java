@@ -43,6 +43,19 @@ public abstract class AbstractMazeCell implements IMazeCell
         }
     }
 
+    @Override
+    public IMazeCell chooseRandomCell(ArrayList<IMazeCell> potentialCells)
+    {
+        IMazeCell result;
+
+        int r = random.nextInt(potentialCells.size());
+
+        this.setWall(r, false);
+        result = potentialCells.get(r);
+
+        return result;
+    }
+
     public abstract Integer getMaximumNumberOfWalls();
 
     @Override

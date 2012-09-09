@@ -20,4 +20,5 @@ public interface IMazeCell extends IObserver, ISubject
     public void setWall(Integer wall, Boolean value);
     public IMazeCell getNeighbour(Integer index);
     public void setNeighbour(Integer index, IMazeCell neighbour);
+    public IMazeCell chooseRandomCell(ArrayList<IMazeCell> potentialCells);
 }

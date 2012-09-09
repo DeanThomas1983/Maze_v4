@@ -4,6 +4,7 @@
  */
 package maze_v4.MazeGenerator;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.Callable;
@@ -64,7 +65,25 @@ public final class DepthFirstMazeGeneratorTask
 
         while (visitedCells < this.mazeStructure.getMazeCells().size())
         {
+            ArrayList<IMazeCell> intactNeighbours =
+                    currentCell.getListOfIntactNeighbours();
 
+            if (!intactNeighbours.isEmpty())
+            {
+                currentCell = currentCell.chooseRandomCell(intactNeighbours);
+
+                System.out.println("Moved into cell: " + currentCell);
+
+                cellStack.push(currentCell);
+
+                visitedCells++;
+            }
+            else
+            {
+                currentCell = cellStack.pop();
+
+                System.out.println("Moved back to cell: " + currentCell);
+            }
         }
 
         this.mazeStructure.setExitCell(currentCell);
