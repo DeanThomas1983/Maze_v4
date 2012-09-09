@@ -73,7 +73,7 @@ implements IMazeRenderer, IObserver, IDisplayElement
                                                  BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = result.createGraphics();
         graphics.setColor(wallColor);
-
+/*
         if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.NORTH).getBlocked())
         {
             drawNorthWall(graphics);
@@ -93,7 +93,7 @@ implements IMazeRenderer, IObserver, IDisplayElement
         {
             drawWestWall(graphics);
         }
-
+*/
 
         return result;
     }

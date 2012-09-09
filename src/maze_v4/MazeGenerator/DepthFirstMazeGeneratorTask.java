@@ -4,13 +4,9 @@
  */
 package maze_v4.MazeGenerator;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import maze_v4.Generics.Wall;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeGeneratorTask;
 import maze_v4.Interfaces.IMazeStructure;

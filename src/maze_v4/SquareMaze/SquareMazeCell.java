@@ -16,19 +16,17 @@ public final class SquareMazeCell
         implements IMazeCell
 {
 
-    public static int NUMBER_OF_WALLS = 4;
-
     public static int NORTH = 0;
     public static int EAST = 1;
     public static int SOUTH = 2;
     public static int WEST = 3;
 
-    public static int getOppositeDirection(int direction)
+    public int getOppositeDirection(int direction)
     {
         int result = direction + 2;
-        if (result > (NUMBER_OF_WALLS - 1))
+        if (result > (getMaximumNumberOfWalls() - 1))
         {
-            result -= NUMBER_OF_WALLS;
+            result -= getMaximumNumberOfWalls();
         }
         return result;
     }
@@ -67,30 +65,98 @@ public final class SquareMazeCell
 
     public Boolean getNorthWall()
     {
-        return this.walls.get(NORTH);
+        return this.getWall(NORTH);
     }
 
     public Boolean getSouthWall()
     {
-        return this.walls.get(SOUTH);
+        return this.getWall(SOUTH);
     }
 
     public Boolean getEastWall()
     {
-        return this.walls.get(EAST);
+        return this.getWall(EAST);
     }
 
     public Boolean getWestWall()
     {
-        return this.walls.get(WEST);
+        return this.getWall(WEST);
     }
 
     public Boolean demolishNorthWall()
     {
+        Boolean result;
+
         if ((this.getCellToNorth() != null) && (this.walls.get(NORTH)))
         {
-            this.getNorthWall() = false;
-            this.getCellToNorth().get
+            this.setWall(NORTH, false);
+            this.getCellToNorth().setWall(SOUTH, false);
+            result = true;
         }
+        else
+        {
+            result = false;
+        }
+        return result;
     }
+
+    public Boolean demolishSouthWall()
+    {
+        Boolean result;
+
+        if ((this.getCellToSouth() != null) && (this.walls.get(SOUTH)))
+        {
+            this.setWall(SOUTH, false);
+            this.getCellToSouth().setWall(NORTH, false);
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    public Boolean demolishEastWall()
+    {
+        Boolean result;
+
+        if ((this.getCellToEast() != null) && (this.walls.get(EAST)))
+        {
+            this.setWall(EAST, false);
+            this.getCellToEast().setWall(WEST, false);
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    public Boolean demolishWestWall()
+    {
+        Boolean result;
+
+        if ((this.getCellToWest() != null) && (this.walls.get(WEST)))
+        {
+            this.setWall(WEST, false);
+            this.getCellToWest().setWall(EAST, false);
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    @Override
+    public Integer getMaximumNumberOfWalls()
+    {
+        return 4;
+    }
+
+
+
 }

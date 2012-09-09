@@ -9,12 +9,13 @@ import java.util.Random;
 import maze_v4.DebugVariables;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IObserver;
+import maze_v4.SquareMaze.SquareMazeCell;
 
 /**
  *
  * @author dean
  */
-public class AbstractMazeCell implements IMazeCell
+public abstract class AbstractMazeCell implements IMazeCell
 {
     private ArrayList<IObserver> observers = new ArrayList<IObserver>();
     private Random random = new Random();
@@ -30,8 +31,19 @@ public class AbstractMazeCell implements IMazeCell
 
     public AbstractMazeCell()
     {
-
+        setupNeighbourArray();
     }
+
+    private void setupNeighbourArray()
+    {
+        for (Integer i = 0; i < getMaximumNumberOfWalls(); i++)
+        {
+            this.connectedCells.add(null);
+        }
+        System.out.println(this.connectedCells.size());
+    }
+
+    public abstract Integer getMaximumNumberOfWalls();
 
     @Override
     public String getIdentity()
@@ -124,6 +136,32 @@ public class AbstractMazeCell implements IMazeCell
     public Integer getNumberOfWalls()
     {
         return walls.size();
+    }
+
+    @Override
+    public Boolean getWall(Integer wall)
+    {
+        return walls.get(wall);
+    }
+
+    @Override
+    public void setWall(Integer wall, Boolean value)
+    {
+        this.walls.set(wall, value);
+
+        this.update();
+    }
+
+    @Override
+    public IMazeCell getNeighbour(Integer index)
+    {
+        return this.connectedCells.get(index);
+    }
+
+    @Override
+    public void setNeighbour(Integer index, IMazeCell neighbour)
+    {
+        this.connectedCells.set(index, neighbour);
     }
 
 

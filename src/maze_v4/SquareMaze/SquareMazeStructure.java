@@ -4,6 +4,7 @@ package maze_v4.SquareMaze;
  * To change this template, choose Tools | Templates and open the template in
  * the editor.
  */
+import java.awt.Point;
 import maze_v4.AbstractClasses.AbstractMazeStructure;
 import maze_v4.DebugVariables;
 import maze_v4.Enums.EnumMazeCellType;
@@ -76,33 +77,6 @@ public final class SquareMazeStructure
                         EnumMazeCellType.SQUARE_MAZE_CELL,
                         "[" + col + "," + row + "]");
 
-                if (row > 0)
-                {
-                    cellToNorth = this.mazeCells.get(indexOfCellToNorth(col, row));
-                    if (DebugVariables.GRID_MAPPING_INFORMATION)
-                    {
-                        System.out.println("Cell to north is: "
-                                + indexOfCellToNorth(col, row) + " - "
-                                + cellToNorth.getIdentity());
-                    }
-                    mazeCell.addNeighbourCell(cellToNorth, SquareMazeCell.NORTH);
-
-                }
-
-                if (col > 0)
-                {
-                    cellToWest = this.mazeCells.get(indexOfCellToWest(col, row));
-                    if (DebugVariables.GRID_MAPPING_INFORMATION)
-                    {
-                        System.out.println("Cell to west is: "
-                                + indexOfCellToWest(col, row) + " - "
-                                + cellToWest.getIdentity());
-                    }
-                    mazeCell.addNeighbourCell(cellToWest, SquareMazeCell.WEST);
-                }
-
-
-
                 mazeCell.registerObserver(this);
 
                 this.mazeCells.add(mazeCell);
@@ -110,11 +84,39 @@ public final class SquareMazeStructure
                 System.out.println();
             }
         }
+
         if (DebugVariables.GRID_MAPPING_INFORMATION)
         {
             System.out.println("Maze generated with: " + this.getMazeCells().size()
                     + " cells");
+
+            System.err.println("Connecting cells");
         }
+
+        connectCells();
+    }
+
+    private void connectCells()
+    {
+        for (int row = 0; row < this.height; row++)
+        {
+            for (int col = 0; col < this.width; col++)
+            {
+                if (row > 0)
+                {
+                    IMazeCell originCell = this.mazeCells.get(indexOfCell(col,row));
+                    IMazeCell cellToNorth = this.mazeCells.get(indexOfCellToNorth(col,row));
+                    originCell.setNeighbour(SquareMazeCell.NORTH, cellToNorth);
+
+                    System.out.println(originCell + " north neighbour is " + cellToNorth);
+                }
+            }
+        }
+    }
+
+    private Integer indexOfCell(Integer col, Integer row)
+    {
+        return col + (row * width);
     }
 
     private Integer indexOfCellToNorth(Integer col, Integer row)
