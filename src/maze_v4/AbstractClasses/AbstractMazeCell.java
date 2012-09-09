@@ -10,7 +10,6 @@ import java.util.Random;
 import maze_v4.DebugVariables;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IObserver;
-import maze_v4.SquareMaze.SquareMazeCell;
 
 /**
  *
@@ -27,7 +26,7 @@ public abstract class AbstractMazeCell implements IMazeCell
     @Override
     public String toString()
     {
-        return this.coordinates.toString();
+        return this.coordinates.x + "," + this.coordinates.y;
     }
 
     public AbstractMazeCell()
