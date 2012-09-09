@@ -8,6 +8,7 @@ import java.awt.Point;
 import maze_v4.AbstractClasses.AbstractMazeStructure;
 import maze_v4.DebugVariables;
 import maze_v4.Enums.EnumMazeCellType;
+import maze_v4.Enums.EnumSquareMazeCellDirection;
 import maze_v4.Factories.MazeCellFactory;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeStructure;
@@ -61,21 +62,20 @@ public final class SquareMazeStructure
             System.err.println("Laying out basic maze structure");
         }
 
-        for (int row = 0; row < this.height; row++)
+        for (int y = 0; y < this.height; y++)
         {
-            for (int col = 0; col < this.width; col++)
+            for (int x = 0; x < this.width; x++)
             {
                 IMazeCell cellToNorth;
                 IMazeCell cellToWest;
 
                 if (DebugVariables.GRID_MAPPING_INFORMATION)
                 {
-                    System.out.println("Generating cell " + col + "," + row);
+                    System.out.println("Generating cell " + x + "," + y);
                 }
 
                 IMazeCell mazeCell = MazeCellFactory.getMazeCell(
-                        EnumMazeCellType.SQUARE_MAZE_CELL,
-                        "[" + col + "," + row + "]");
+                        EnumMazeCellType.SQUARE_MAZE_CELL,new Point(x, y));
 
                 mazeCell.registerObserver(this);
 
@@ -98,17 +98,17 @@ public final class SquareMazeStructure
 
     private void connectCells()
     {
-        for (int row = 0; row < this.height; row++)
+        for (int y = 0; y < this.height; y++)
         {
-            for (int col = 0; col < this.width; col++)
+            for (int x = 0; x < this.width; x++)
             {
-                IMazeCell originCell = this.mazeCells.get(indexOfCell(col, row));
+                IMazeCell originCell = this.mazeCells.get(indexOfCell(x, y));
 
-                if (row > 0)
+                if (y > 0)
                 {
                     //  Setup a connection with the cell to the north
-                    IMazeCell cellToNorth = this.mazeCells.get(indexOfCellToNorth(col, row));
-                    originCell.setNeighbour(SquareMazeCell.NORTH, cellToNorth);
+                    IMazeCell cellToNorth = this.mazeCells.get(indexOfCellToNorth(x, y));
+                    originCell.setNeighbour(EnumSquareMazeCellDirection.NORTH.ordinal(), cellToNorth);
 
                     if (DebugVariables.GRID_MAPPING_INFORMATION)
                     {
@@ -116,11 +116,11 @@ public final class SquareMazeStructure
                     }
                 }
 
-                if (row < this.height - 1)
+                if (y < this.height - 1)
                 {
                     //  Setup a connection with the cell to the south
-                    IMazeCell cellToSouth = this.mazeCells.get(indexOfCellToSouth(col, row));
-                    originCell.setNeighbour(SquareMazeCell.SOUTH, cellToSouth);
+                    IMazeCell cellToSouth = this.mazeCells.get(indexOfCellToSouth(x, y));
+                    originCell.setNeighbour(EnumSquareMazeCellDirection.SOUTH.ordinal(), cellToSouth);
 
                     if (DebugVariables.GRID_MAPPING_INFORMATION)
                     {
@@ -128,11 +128,11 @@ public final class SquareMazeStructure
                     }
                 }
 
-                if (col > 0)
+                if (x > 0)
                 {
                     //  Setup connection with the cell to the west
-                    IMazeCell cellToWest = this.mazeCells.get(indexOfCellToWest(col, row));
-                    originCell.setNeighbour(SquareMazeCell.WEST, cellToWest);
+                    IMazeCell cellToWest = this.mazeCells.get(indexOfCellToWest(x, y));
+                    originCell.setNeighbour(EnumSquareMazeCellDirection.WEST.ordinal(), cellToWest);
 
                     if (DebugVariables.GRID_MAPPING_INFORMATION)
                     {
@@ -140,11 +140,11 @@ public final class SquareMazeStructure
                     }
                 }
 
-                if (col < this.width - 1)
+                if (x < this.width - 1)
                 {
                     //  Setup connection with the cell to the east
-                    IMazeCell cellToEast = this.mazeCells.get(indexOfCellToEast(col, row));
-                    originCell.setNeighbour(SquareMazeCell.EAST, cellToEast);
+                    IMazeCell cellToEast = this.mazeCells.get(indexOfCellToEast(x, y));
+                    originCell.setNeighbour(EnumSquareMazeCellDirection.EAST.ordinal(), cellToEast);
 
                     if (DebugVariables.GRID_MAPPING_INFORMATION)
                     {
@@ -160,28 +160,28 @@ public final class SquareMazeStructure
         }
     }
 
-    private Integer indexOfCell(Integer col, Integer row)
+    private Integer indexOfCell(Integer x, Integer y)
     {
-        return col + (row * width);
+        return x + (y * width);
     }
 
-    private Integer indexOfCellToNorth(Integer col, Integer row)
+    private Integer indexOfCellToNorth(Integer x, Integer y)
     {
-        return col + ((row - 1) * height);
+        return x + ((y - 1) * width);
     }
 
-    private Integer indexOfCellToWest(Integer col, Integer row)
+    private Integer indexOfCellToWest(Integer x, Integer y)
     {
-        return (col - 1) + (row * height);
+        return (x - 1) + (y * width);
     }
 
-    private Integer indexOfCellToEast(Integer col, Integer row)
+    private Integer indexOfCellToEast(Integer x, Integer y)
     {
-        return (col + 1) + (row * height);
+        return (x + 1) + (y * width);
     }
 
-    private Integer indexOfCellToSouth(Integer col, Integer row)
+    private Integer indexOfCellToSouth(Integer x, Integer y)
     {
-        return col + ((row + 1) * height);
+        return x + ((y + 1) * width);
     }
 }

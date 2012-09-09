@@ -4,93 +4,147 @@
  */
 package maze_v4.SquareMaze;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import maze_v4.AbstractClasses.AbstractMazeCell;
+import maze_v4.Enums.EnumSquareMazeCellDirection;
 import maze_v4.Interfaces.IMazeCell;
 
 /**
  *
- * @author dean
+ * @author dean is a usless twat
  */
 public final class SquareMazeCell
         extends AbstractMazeCell
         implements IMazeCell
 {
 
-    public static int NORTH = 0;
-    public static int EAST = 1;
-    public static int SOUTH = 2;
-    public static int WEST = 3;
-
-    public int getOppositeDirection(int direction)
-    {
-        int result = direction + 2;
-        if (result > (getMaximumNumberOfWalls() - 1))
-        {
-            result -= getMaximumNumberOfWalls();
-        }
-        return result;
-    }
-
     public SquareMazeCell()
     {
-        this("Untitled Cell");
+        this(new Point());
     }
 
-    public SquareMazeCell(String identity)
+    public SquareMazeCell(Point coordinates)
     {
         super();
         //  Create a new cell with no neighbours
-        this.identity = identity;
+        this.coordinates = coordinates;
     }
 
     public IMazeCell getCellToNorth()
     {
-        return this.connectedCells.get(NORTH);
+        return this.connectedCells.get(EnumSquareMazeCellDirection.NORTH.ordinal());
     }
 
     public IMazeCell getCellToSouth()
     {
-        return this.connectedCells.get(SOUTH);
+        return this.connectedCells.get(EnumSquareMazeCellDirection.SOUTH.ordinal());
     }
 
     public IMazeCell getCellToEast()
     {
-        return this.connectedCells.get(EAST);
+        return this.connectedCells.get(EnumSquareMazeCellDirection.EAST.ordinal());
     }
 
     public IMazeCell getCellToWest()
     {
-        return this.connectedCells.get(WEST);
+        return this.connectedCells.get(EnumSquareMazeCellDirection.WEST.ordinal());
     }
 
     public Boolean getNorthWall()
     {
-        return this.getWall(NORTH);
+        return this.getWall(EnumSquareMazeCellDirection.NORTH.ordinal());
     }
 
     public Boolean getSouthWall()
     {
-        return this.getWall(SOUTH);
+        return this.getWall(EnumSquareMazeCellDirection.SOUTH.ordinal());
     }
 
     public Boolean getEastWall()
     {
-        return this.getWall(EAST);
+        return this.getWall(EnumSquareMazeCellDirection.EAST.ordinal());
     }
 
     public Boolean getWestWall()
     {
-        return this.getWall(WEST);
+        return this.getWall(EnumSquareMazeCellDirection.WEST.ordinal());
+    }
+
+    @Override
+    public IMazeCell chooseRandomCell(ArrayList<IMazeCell> potentialCells)
+    {
+        IMazeCell result;
+
+        int r = random.nextInt(potentialCells.size());
+
+        System.out.println("Selected cell with index: " + r);
+
+        EnumSquareMazeCellDirection positionRelative = getPositionRelative(potentialCells.get(r));
+
+        System.out.println("Next cell is " + positionRelative);
+
+        switch(positionRelative)
+        {
+            case NORTH: demolishNorthWall();
+                result = potentialCells.get(EnumSquareMazeCellDirection.NORTH.ordinal());
+                break;
+            case EAST: demolishEastWall();
+                result = potentialCells.get(EnumSquareMazeCellDirection.EAST.ordinal());
+                break;
+            case SOUTH: demolishSouthWall();
+                result = potentialCells.get(EnumSquareMazeCellDirection.SOUTH.ordinal());
+                break;
+            case WEST: demolishWestWall();
+                result = potentialCells.get(EnumSquareMazeCellDirection.WEST.ordinal());
+                break;
+            default: System.err.println("Could not pick a cell to move into");
+                result = null;
+                break;
+        }
+
+        return result;
+    }
+
+    private EnumSquareMazeCellDirection getPositionRelative(IMazeCell testCell)
+    {
+        EnumSquareMazeCellDirection result;
+
+        if (this.coordinates.x < testCell.getCoordinates().x)
+        {
+            result = EnumSquareMazeCellDirection.WEST;
+        }
+        else
+        {
+            if (this.coordinates.x > testCell.getCoordinates().x)
+            {
+                result = EnumSquareMazeCellDirection.EAST;
+            }
+            else
+            {
+                if (this.coordinates.y < testCell.getCoordinates().y)
+                {
+                    result = EnumSquareMazeCellDirection.SOUTH;
+                }
+                else
+                {
+                    result = EnumSquareMazeCellDirection.NORTH;
+                }
+            }
+        }
+
+
+        return result;
     }
 
     public Boolean demolishNorthWall()
     {
         Boolean result;
 
-        if ((this.getCellToNorth() != null) && (this.walls.get(NORTH)))
+        if ((this.getCellToNorth() != null) && (this.walls.get(EnumSquareMazeCellDirection.NORTH.ordinal())))
         {
-            this.setWall(NORTH, false);
-            this.getCellToNorth().setWall(SOUTH, false);
+            this.setWall(EnumSquareMazeCellDirection.NORTH.ordinal(), false);
+            this.getCellToNorth().setWall(EnumSquareMazeCellDirection.SOUTH.ordinal(), false);
             result = true;
         }
         else
@@ -104,10 +158,10 @@ public final class SquareMazeCell
     {
         Boolean result;
 
-        if ((this.getCellToSouth() != null) && (this.walls.get(SOUTH)))
+        if ((this.getCellToSouth() != null) && (this.walls.get(EnumSquareMazeCellDirection.SOUTH.ordinal())))
         {
-            this.setWall(SOUTH, false);
-            this.getCellToSouth().setWall(NORTH, false);
+            this.setWall(EnumSquareMazeCellDirection.SOUTH.ordinal(), false);
+            this.getCellToSouth().setWall(EnumSquareMazeCellDirection.NORTH.ordinal(), false);
             result = true;
         }
         else
@@ -121,10 +175,10 @@ public final class SquareMazeCell
     {
         Boolean result;
 
-        if ((this.getCellToEast() != null) && (this.walls.get(EAST)))
+        if ((this.getCellToEast() != null) && (this.walls.get(EnumSquareMazeCellDirection.EAST.ordinal())))
         {
-            this.setWall(EAST, false);
-            this.getCellToEast().setWall(WEST, false);
+            this.setWall(EnumSquareMazeCellDirection.EAST.ordinal(), false);
+            this.getCellToEast().setWall(EnumSquareMazeCellDirection.WEST.ordinal(), false);
             result = true;
         }
         else
@@ -138,10 +192,10 @@ public final class SquareMazeCell
     {
         Boolean result;
 
-        if ((this.getCellToWest() != null) && (this.walls.get(WEST)))
+        if ((this.getCellToWest() != null) && (this.walls.get(EnumSquareMazeCellDirection.WEST.ordinal())))
         {
-            this.setWall(WEST, false);
-            this.getCellToWest().setWall(EAST, false);
+            this.setWall(EnumSquareMazeCellDirection.WEST.ordinal(), false);
+            this.getCellToWest().setWall(EnumSquareMazeCellDirection.EAST.ordinal(), false);
             result = true;
         }
         else

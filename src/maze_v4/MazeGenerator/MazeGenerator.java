@@ -23,6 +23,8 @@ public class MazeGenerator
             = new ScheduledThreadPoolExecutor(1);
     protected ScheduledExecutorService executorService;
 
+
+
     /**
      *  Constructor - create a MazeGenerator object which is capable of
      *  scheduling tasks to create mazes on a background thread

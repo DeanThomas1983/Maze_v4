@@ -4,6 +4,7 @@
  */
 package maze_v4.Interfaces;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 public interface IMazeCell extends IObserver, ISubject
 {
-    public String getIdentity();
+    public Point getCoordinates();
     public ArrayList<IMazeCell> getListOfIntactNeighbours();
     public Integer getNumberOfIntactWalls();
     public Integer getNumberOfWalls();

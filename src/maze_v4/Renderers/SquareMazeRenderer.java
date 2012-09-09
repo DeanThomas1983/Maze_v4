@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import maze_v4.DataModel;
+import maze_v4.Enums.EnumSquareMazeCellDirection;
 import maze_v4.Interfaces.IDisplayElement;
 import maze_v4.Interfaces.IMazeRenderer;
 import maze_v4.Interfaces.IMazeStructure;
@@ -74,22 +75,22 @@ implements IMazeRenderer, IObserver, IDisplayElement
         Graphics2D graphics = result.createGraphics();
         graphics.setColor(wallColor);
 
-        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.NORTH))
+        if (mazeStructure.getMazeCells().get(index).getWall(EnumSquareMazeCellDirection.NORTH.ordinal()))
         {
             drawNorthWall(graphics);
         }
 
-        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.EAST))
+        if (mazeStructure.getMazeCells().get(index).getWall(EnumSquareMazeCellDirection.EAST.ordinal()))
         {
             drawEastWall(graphics);
         }
 
-        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.SOUTH))
+        if (mazeStructure.getMazeCells().get(index).getWall(EnumSquareMazeCellDirection.SOUTH.ordinal()))
         {
             drawSouthWall(graphics);
         }
 
-        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.WEST))
+        if (mazeStructure.getMazeCells().get(index).getWall(EnumSquareMazeCellDirection.WEST.ordinal()))
         {
             drawWestWall(graphics);
         }

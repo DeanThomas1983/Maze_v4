@@ -4,6 +4,7 @@
  */
 package maze_v4.AbstractClasses;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 import maze_v4.DebugVariables;
@@ -18,15 +19,15 @@ import maze_v4.SquareMaze.SquareMazeCell;
 public abstract class AbstractMazeCell implements IMazeCell
 {
     private ArrayList<IObserver> observers = new ArrayList<IObserver>();
-    private Random random = new Random();
-    protected String identity;
+    protected Random random = new Random(1);
+    protected Point coordinates;
     protected ArrayList<Boolean> walls = new ArrayList<Boolean>();
     protected ArrayList<IMazeCell> connectedCells = new ArrayList<IMazeCell>();
 
     @Override
     public String toString()
     {
-        return this.identity;
+        return this.coordinates.toString();
     }
 
     public AbstractMazeCell()
@@ -43,25 +44,12 @@ public abstract class AbstractMazeCell implements IMazeCell
         }
     }
 
-    @Override
-    public IMazeCell chooseRandomCell(ArrayList<IMazeCell> potentialCells)
-    {
-        IMazeCell result;
-
-        int r = random.nextInt(potentialCells.size());
-
-        this.setWall(r, false);
-        result = potentialCells.get(r);
-
-        return result;
-    }
-
     public abstract Integer getMaximumNumberOfWalls();
 
     @Override
-    public String getIdentity()
+    public Point getCoordinates()
     {
-        return this.identity;
+        return this.coordinates;
     }
 
     @Override
@@ -176,6 +164,4 @@ public abstract class AbstractMazeCell implements IMazeCell
     {
         this.connectedCells.set(index, neighbour);
     }
-
-
 }

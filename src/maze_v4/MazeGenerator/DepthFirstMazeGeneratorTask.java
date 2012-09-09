@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import maze_v4.Interfaces.IMazeCell;
 import maze_v4.Interfaces.IMazeGeneratorTask;
 import maze_v4.Interfaces.IMazeStructure;
@@ -21,7 +23,7 @@ public final class DepthFirstMazeGeneratorTask
                    Callable<Void>
 {
 
-    Random random = new Random();
+    Random random = new Random(1);
     IMazeStructure mazeStructure;
     Integer pauseBetweenSteps = 0;
 
@@ -84,7 +86,16 @@ public final class DepthFirstMazeGeneratorTask
 
                 System.out.println("Moved back to cell: " + currentCell);
             }
-        }
+/*
+            try
+            {
+                Thread.sleep(this.pauseBetweenSteps);
+            }
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(DepthFirstMazeGeneratorTask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+*/        }
 
         this.mazeStructure.setExitCell(currentCell);
     }
