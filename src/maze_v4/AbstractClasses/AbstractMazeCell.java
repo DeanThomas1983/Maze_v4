@@ -20,7 +20,7 @@ public abstract class AbstractMazeCell implements IMazeCell
     private ArrayList<IObserver> observers = new ArrayList<IObserver>();
     protected Random random = new Random(1);
     protected Point coordinates;
-    protected ArrayList<Boolean> walls = new ArrayList<Boolean>();
+    protected Boolean walls[];
     protected ArrayList<IMazeCell> connectedCells = new ArrayList<IMazeCell>();
 
     @Override
@@ -36,10 +36,13 @@ public abstract class AbstractMazeCell implements IMazeCell
 
     private void setupNeighbourArray()
     {
+        this.walls = new Boolean[getMaximumNumberOfWalls()];
+
         for (Integer i = 0; i < getMaximumNumberOfWalls(); i++)
         {
             this.connectedCells.add(null);
-            this.walls.add(true);
+            this.walls[i] = true;
+            //this.walls.add(true);
         }
     }
 
@@ -135,19 +138,19 @@ public abstract class AbstractMazeCell implements IMazeCell
     @Override
     public Integer getNumberOfWalls()
     {
-        return walls.size();
+        return walls.length;
     }
 
     @Override
-    public Boolean getWall(Integer wall)
+    public Boolean getWall(Integer index)
     {
-        return walls.get(wall);
+        return walls[index];
     }
 
     @Override
-    public void setWall(Integer wall, Boolean value)
+    public void setWall(Integer index, Boolean value)
     {
-        this.walls.set(wall, value);
+        this.walls[index] = value;
 
         this.update();
     }

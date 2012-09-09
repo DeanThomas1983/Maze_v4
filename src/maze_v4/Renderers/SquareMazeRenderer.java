@@ -15,7 +15,6 @@ import maze_v4.Interfaces.IDisplayElement;
 import maze_v4.Interfaces.IMazeRenderer;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;
-import maze_v4.SquareMaze.SquareMazeCell;
 
 /**
  *
@@ -27,8 +26,8 @@ implements IMazeRenderer, IObserver, IDisplayElement
 
     private Color wallColor = Color.BLUE;
 
-    public static final int CELL_WIDTH = 64;
-    public static final int CELL_HEIGHT = 64;
+    public static final int CELL_WIDTH = 16;
+    public static final int CELL_HEIGHT = 16;
 
     @Override
     public Image drawMaze()
@@ -45,13 +44,14 @@ implements IMazeRenderer, IObserver, IDisplayElement
 
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 
-        for (int row = 0; row < mazeStructure.getHeight(); row++)
+        for (int x = 0; x < mazeStructure.getHeight(); x++)
         {
-            for (int col = 0; col < mazeStructure.getWidth(); col++)
+            for (int y = 0; y < mazeStructure.getWidth(); y++)
             {
-                graphics.drawImage(drawCell(indexOfCell(row,col)),
-                                   col*CELL_WIDTH,
-                                   row*CELL_HEIGHT,null);
+                graphics.drawImage(drawCell(indexOfCell(x,y)),
+                                   x*CELL_HEIGHT,
+                                   y*CELL_WIDTH,
+                                   null);
             }
         }
 

@@ -143,7 +143,7 @@ public final class SquareMazeCell
     {
         Boolean result;
 
-        if ((this.getCellToNorth() != null) && (this.walls.get(EnumSquareMazeCellDirection.NORTH.ordinal())))
+        if (this.getCellToNorth() != null)
         {
             this.setWall(EnumSquareMazeCellDirection.NORTH.ordinal(), false);
             this.getCellToNorth().setWall(EnumSquareMazeCellDirection.SOUTH.ordinal(), false);
@@ -153,14 +153,14 @@ public final class SquareMazeCell
         {
             result = false;
         }
-        return result;
+       return result;
     }
 
     public Boolean demolishSouthWall()
     {
         Boolean result;
 
-        if ((this.getCellToSouth() != null) && (this.walls.get(EnumSquareMazeCellDirection.SOUTH.ordinal())))
+        if (this.getCellToSouth() != null)
         {
             this.setWall(EnumSquareMazeCellDirection.SOUTH.ordinal(), false);
             this.getCellToSouth().setWall(EnumSquareMazeCellDirection.NORTH.ordinal(), false);
@@ -177,10 +177,16 @@ public final class SquareMazeCell
     {
         Boolean result;
 
-        if ((this.getCellToEast() != null) && (this.walls.get(EnumSquareMazeCellDirection.EAST.ordinal())))
+        if (this.getCellToEast() != null)
         {
+            System.out.println("EAST = " + EnumSquareMazeCellDirection.EAST.ordinal());
             this.setWall(EnumSquareMazeCellDirection.EAST.ordinal(), false);
+
+            System.out.println("WEST = " + EnumSquareMazeCellDirection.WEST.ordinal());
             this.getCellToEast().setWall(EnumSquareMazeCellDirection.WEST.ordinal(), false);
+
+            System.out.println("Demolishing east wall");
+
             result = true;
         }
         else
@@ -194,10 +200,13 @@ public final class SquareMazeCell
     {
         Boolean result;
 
-        if ((this.getCellToWest() != null) && (this.walls.get(EnumSquareMazeCellDirection.WEST.ordinal())))
+        if (this.getCellToWest() != null)
         {
             this.setWall(EnumSquareMazeCellDirection.WEST.ordinal(), false);
             this.getCellToWest().setWall(EnumSquareMazeCellDirection.EAST.ordinal(), false);
+
+            System.out.println("Demolishing west wall");
+
             result = true;
         }
         else

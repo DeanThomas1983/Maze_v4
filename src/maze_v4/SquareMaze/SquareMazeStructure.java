@@ -29,7 +29,7 @@ public final class SquareMazeStructure
 
     public SquareMazeStructure()
     {
-        this(3, 3);
+        this(12, 12);
     }
 
     @Override
