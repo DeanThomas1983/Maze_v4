@@ -126,7 +126,6 @@ public abstract class AbstractMazeStructure
     }
 
     /**
-     *
      * Remove an observer from the list of observers.
      *
      * @param observerForRemoval the object to be removed
