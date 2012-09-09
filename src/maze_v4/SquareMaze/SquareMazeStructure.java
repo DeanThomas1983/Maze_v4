@@ -90,7 +90,7 @@ public final class SquareMazeStructure
             System.out.println("Maze generated with: " + this.getMazeCells().size()
                     + " cells");
 
-            System.err.println("Connecting cells");
+            System.out.println("Connecting cells");
         }
 
         connectCells();
@@ -102,14 +102,45 @@ public final class SquareMazeStructure
         {
             for (int col = 0; col < this.width; col++)
             {
+                IMazeCell originCell = this.mazeCells.get(indexOfCell(col,row));
+
                 if (row > 0)
                 {
-                    IMazeCell originCell = this.mazeCells.get(indexOfCell(col,row));
+                    //  Setup a connection with the cell to the north
                     IMazeCell cellToNorth = this.mazeCells.get(indexOfCellToNorth(col,row));
                     originCell.setNeighbour(SquareMazeCell.NORTH, cellToNorth);
 
                     System.out.println(originCell + " north neighbour is " + cellToNorth);
                 }
+
+                if (row < this.height-1)
+                {
+                    //  Setup a connection with the cell to the south
+                    IMazeCell cellToSouth = this.mazeCells.get(indexOfCellToSouth(col,row));
+                    originCell.setNeighbour(SquareMazeCell.SOUTH, cellToSouth);
+
+                    System.out.println(originCell + " south neighbour is " + cellToSouth);
+                }
+
+                if (col > 0)
+                {
+                    //  Setup connection with the cell to the west
+                    IMazeCell cellToWest = this.mazeCells.get(indexOfCellToWest(col, row));
+                    originCell.setNeighbour(SquareMazeCell.WEST, cellToWest);
+
+                    System.out.println(originCell + " west neighbour is " + cellToWest);
+                }
+
+                if (col < this.width-1)
+                {
+                    //  Setup connection with the cell to the east
+                    IMazeCell cellToEast = this.mazeCells.get(indexOfCellToEast(col, row));
+                    originCell.setNeighbour(SquareMazeCell.EAST, cellToEast);
+
+                    System.out.println(originCell + " east neighbour is " + cellToEast);
+                }
+
+                System.out.println();
             }
         }
     }
@@ -127,5 +158,15 @@ public final class SquareMazeStructure
     private Integer indexOfCellToWest(Integer col, Integer row)
     {
         return (col - 1) + (row * height);
+    }
+
+    private Integer indexOfCellToEast(Integer col, Integer row)
+    {
+        return (col + 1) + (row * height);
+    }
+
+    private Integer indexOfCellToSouth(Integer col, Integer row)
+    {
+        return col + ((row + 1) * height);
     }
 }

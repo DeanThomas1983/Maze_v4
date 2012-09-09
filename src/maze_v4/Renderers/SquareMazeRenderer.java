@@ -14,7 +14,6 @@ import maze_v4.Interfaces.IDisplayElement;
 import maze_v4.Interfaces.IMazeRenderer;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;
-import maze_v4.SquareMaze.SquareMazeCell;
 
 /**
  *

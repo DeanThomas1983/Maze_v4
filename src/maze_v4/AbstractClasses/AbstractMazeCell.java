@@ -40,7 +40,6 @@ public abstract class AbstractMazeCell implements IMazeCell
         {
             this.connectedCells.add(null);
         }
-        System.out.println(this.connectedCells.size());
     }
 
     public abstract Integer getMaximumNumberOfWalls();
