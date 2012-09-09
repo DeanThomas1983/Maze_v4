@@ -86,7 +86,10 @@ public final class DepthFirstMazeGeneratorTask
 
                 System.out.println("Moved back to cell: " + currentCell);
             }
-/*
+
+            System.out.println();
+            /*
+ *
             try
             {
                 Thread.sleep(this.pauseBetweenSteps);

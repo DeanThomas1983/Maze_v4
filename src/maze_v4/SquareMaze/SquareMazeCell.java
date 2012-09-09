@@ -82,21 +82,23 @@ public final class SquareMazeCell
 
         EnumSquareMazeCellDirection positionRelative = getPositionRelative(potentialCells.get(r));
 
-        System.out.println("Next cell is " + positionRelative);
+        System.out.println("Next cell will be: " + potentialCells.get(r));
+
+        System.out.println("this is " + positionRelative);
 
         switch(positionRelative)
         {
             case NORTH: demolishNorthWall();
-                result = potentialCells.get(EnumSquareMazeCellDirection.NORTH.ordinal());
+                result = potentialCells.get(r);
                 break;
             case EAST: demolishEastWall();
-                result = potentialCells.get(EnumSquareMazeCellDirection.EAST.ordinal());
+                result = potentialCells.get(r);
                 break;
             case SOUTH: demolishSouthWall();
-                result = potentialCells.get(EnumSquareMazeCellDirection.SOUTH.ordinal());
+                result = potentialCells.get(r);
                 break;
             case WEST: demolishWestWall();
-                result = potentialCells.get(EnumSquareMazeCellDirection.WEST.ordinal());
+                result = potentialCells.get(r);
                 break;
             default: System.err.println("Could not pick a cell to move into");
                 result = null;
@@ -112,13 +114,13 @@ public final class SquareMazeCell
 
         if (this.coordinates.x < testCell.getCoordinates().x)
         {
-            result = EnumSquareMazeCellDirection.WEST;
+            result = EnumSquareMazeCellDirection.EAST;
         }
         else
         {
             if (this.coordinates.x > testCell.getCoordinates().x)
             {
-                result = EnumSquareMazeCellDirection.EAST;
+                result = EnumSquareMazeCellDirection.WEST;
             }
             else
             {
