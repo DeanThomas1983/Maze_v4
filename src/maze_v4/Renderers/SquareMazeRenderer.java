@@ -14,6 +14,7 @@ import maze_v4.Interfaces.IDisplayElement;
 import maze_v4.Interfaces.IMazeRenderer;
 import maze_v4.Interfaces.IMazeStructure;
 import maze_v4.Interfaces.IObserver;
+import maze_v4.SquareMaze.SquareMazeCell;
 
 /**
  *
@@ -72,27 +73,26 @@ implements IMazeRenderer, IObserver, IDisplayElement
                                                  BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = result.createGraphics();
         graphics.setColor(wallColor);
-/*
-        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.NORTH).getBlocked())
+
+        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.NORTH))
         {
             drawNorthWall(graphics);
         }
 
-        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.EAST).getBlocked())
+        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.EAST))
         {
             drawEastWall(graphics);
         }
 
-        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.SOUTH).getBlocked())
+        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.SOUTH))
         {
             drawSouthWall(graphics);
         }
 
-        if (mazeStructure.getMazeCells().get(index).getWalls().get(SquareMazeCell.WEST).getBlocked())
+        if (mazeStructure.getMazeCells().get(index).getWall(SquareMazeCell.WEST))
         {
             drawWestWall(graphics);
         }
-*/
 
         return result;
     }

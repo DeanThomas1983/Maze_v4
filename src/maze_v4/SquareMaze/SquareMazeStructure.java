@@ -102,24 +102,30 @@ public final class SquareMazeStructure
         {
             for (int col = 0; col < this.width; col++)
             {
-                IMazeCell originCell = this.mazeCells.get(indexOfCell(col,row));
+                IMazeCell originCell = this.mazeCells.get(indexOfCell(col, row));
 
                 if (row > 0)
                 {
                     //  Setup a connection with the cell to the north
-                    IMazeCell cellToNorth = this.mazeCells.get(indexOfCellToNorth(col,row));
+                    IMazeCell cellToNorth = this.mazeCells.get(indexOfCellToNorth(col, row));
                     originCell.setNeighbour(SquareMazeCell.NORTH, cellToNorth);
 
-                    System.out.println(originCell + " north neighbour is " + cellToNorth);
+                    if (DebugVariables.GRID_MAPPING_INFORMATION)
+                    {
+                        System.out.println(originCell + " north neighbour is " + cellToNorth);
+                    }
                 }
 
-                if (row < this.height-1)
+                if (row < this.height - 1)
                 {
                     //  Setup a connection with the cell to the south
-                    IMazeCell cellToSouth = this.mazeCells.get(indexOfCellToSouth(col,row));
+                    IMazeCell cellToSouth = this.mazeCells.get(indexOfCellToSouth(col, row));
                     originCell.setNeighbour(SquareMazeCell.SOUTH, cellToSouth);
 
-                    System.out.println(originCell + " south neighbour is " + cellToSouth);
+                    if (DebugVariables.GRID_MAPPING_INFORMATION)
+                    {
+                        System.out.println(originCell + " south neighbour is " + cellToSouth);
+                    }
                 }
 
                 if (col > 0)
@@ -128,19 +134,28 @@ public final class SquareMazeStructure
                     IMazeCell cellToWest = this.mazeCells.get(indexOfCellToWest(col, row));
                     originCell.setNeighbour(SquareMazeCell.WEST, cellToWest);
 
-                    System.out.println(originCell + " west neighbour is " + cellToWest);
+                    if (DebugVariables.GRID_MAPPING_INFORMATION)
+                    {
+                        System.out.println(originCell + " west neighbour is " + cellToWest);
+                    }
                 }
 
-                if (col < this.width-1)
+                if (col < this.width - 1)
                 {
                     //  Setup connection with the cell to the east
                     IMazeCell cellToEast = this.mazeCells.get(indexOfCellToEast(col, row));
                     originCell.setNeighbour(SquareMazeCell.EAST, cellToEast);
 
-                    System.out.println(originCell + " east neighbour is " + cellToEast);
+                    if (DebugVariables.GRID_MAPPING_INFORMATION)
+                    {
+                        System.out.println(originCell + " east neighbour is " + cellToEast);
+                    }
                 }
 
-                System.out.println();
+                if (DebugVariables.GRID_MAPPING_INFORMATION)
+                {
+                    System.out.println();
+                }
             }
         }
     }

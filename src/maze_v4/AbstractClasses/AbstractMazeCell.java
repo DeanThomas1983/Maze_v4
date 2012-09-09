@@ -39,6 +39,7 @@ public abstract class AbstractMazeCell implements IMazeCell
         for (Integer i = 0; i < getMaximumNumberOfWalls(); i++)
         {
             this.connectedCells.add(null);
+            this.walls.add(true);
         }
     }
 
